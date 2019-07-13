@@ -39,7 +39,7 @@ result.any_method
 # => Mimic::Void::Error (Cannot invoke `any_method' on a void)
 ```
 
-NOTE: Method chaining is not possible with a mimicked object. This is done with respect to the [Law of Demeter](https://en.wikipedia.org/wiki/Law_of_Demeter). For a library that offers more advanced features, such as _Black Hole_ styled null objects, consider [Naught](https://github.com/avdi/naught) (amongst others).
+NOTE: Method chaining is not possible with a mimicked object. This is done with respect to the [Law of Demeter](https://en.wikipedia.org/wiki/Law_of_Demeter).
 
 ## Preserved Methods
 
@@ -50,6 +50,10 @@ A list of methods that are preserved can be retrieved from the `Mimic::ReplaceMe
 ``` ruby
 puts Mimic.preserved_methods
 ```
+
+## Acknowledgment
+
+The Eventide Project made use of the [Naught](https://github.com/avdi/naught) library for a number of years before implementing Mimic. Its implementation has been both instructive and inspirational for Mimic.
 
 ## License
 
