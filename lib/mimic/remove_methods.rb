@@ -14,24 +14,7 @@ module Mimic
     end
 
     def self.preserved
-      # @preserved ||= %w(
-      #   !
-      #   !=
-      #   ==
-      #   ===
-      #   __id__
-      #   __send__
-      #   equal?
-      #   inspect
-      #   instance_eval
-      #   instance_exec
-      #   object_id
-      #   respond_to?
-      #   to_s
-      # ).map(&:to_sym)
-
       @preserved ||= Object.instance_methods.sort
-
     end
   end
 end
