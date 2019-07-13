@@ -1,0 +1,2 @@
+module Mimic
+end
