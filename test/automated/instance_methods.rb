@@ -5,11 +5,11 @@ context "Instance Methods" do
 
   context "Implemented" do
     test "some_method" do
-      assert(mimic.respond_to?(:some_method))
+      assert(mimic.respond_to?(:a_method))
     end
 
     test "some_other_method" do
-      assert(mimic.respond_to?(:some_other_method))
+      assert(mimic.respond_to?(:another_method))
     end
   end
 end

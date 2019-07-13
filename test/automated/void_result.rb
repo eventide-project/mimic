@@ -4,9 +4,11 @@ context "Void Result" do
   mimic = Controls::Mimic.example
 
   context "From mimicked methods" do
-    [:some_method, :some_other_method].each do |m|
+    [:a_method, :another_method].each do |m|
+      result = mimic.__send__(m)
+
       test "#{m}" do
-        assert(mimic.send(m).is_a?(Mimic::Void))
+        assert(result == Mimic::Void)
       end
     end
   end

@@ -13,16 +13,10 @@ module Mimic
         end
 
         class Example
-          def some_method
+          def a_method
           end
 
-          def some_other_method
-          end
-
-          def self.some_class_method
-          end
-
-          def self.some_other_class_method
+          def another_method
           end
         end
       end
