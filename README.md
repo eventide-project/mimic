@@ -48,7 +48,7 @@ Mimicked objects' instance methods are replaced with voided methods _except_ for
 A list of methods that are preserved can be retrieved from the `Mimic::ReplaceMethods` module.
 
 ``` ruby
-puts Mimic::RemoveMethods.preserved
+puts Mimic.preserved_methods
 ```
 
 ## License
