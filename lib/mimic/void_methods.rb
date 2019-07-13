@@ -1,9 +1,9 @@
 module Mimic
   module VoidMethods
-    def self.call(cls)
-      void_methods = Mimic.subject_methods(cls)
+    def self.call(cls, subject_methods=nil)
+      subject_methods ||= Mimic.subject_methods(cls)
 
-      void_methods.each do |m|
+      subject_methods.each do |m|
         void_method(cls, m)
       end
 

@@ -10,7 +10,6 @@ context "Void Methods" do
   implemented_methods = Controls::Subject::Class.implemented_methods
 
   context "Implemented Methods are Voided" do
-
     implemented_methods.each do |m|
       result = subject.__send__(m)
 
