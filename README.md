@@ -14,7 +14,7 @@ end
 mimic = Mimic.(SomeClass)
 
 mimic.some_method
-# => (does nothing)
+# => #<Mimic::Void:0x...>
 
 mimic.some_other_method
 # NameError (undefined local variable or method `some_other_method')
