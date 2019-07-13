@@ -27,7 +27,7 @@ context "Remove Methods" do
 
   context "Remaining Instance Methods" do
     subject_class.instance_methods.sort.each do |m|
-      test "#{m}" do; end
+      comment "#{m}"
     end
   end
 end
