@@ -41,6 +41,28 @@ result.any_method
 
 NOTE: Method chaining is not possible with a mimicked object. This is done with respect to the [Law of Demeter](https://en.wikipedia.org/wiki/Law_of_Demeter).
 
+## Specializing Mimic Objects
+
+A mimicked object can be specialized by passing a block argument to the `Mimic` actuator.
+
+``` ruby
+mimic = Mimic.(SomeClass) do
+  def an_instance_method
+    puts 'In an_instance_method'
+  end
+
+  def self.a_class_method
+    puts 'In a_class_method'
+  end
+end
+
+mimic.an_instance_method
+# => "In an_instance_method"
+
+mimic.class.a_class_method
+# => "In a_class_method"
+```
+
 ## Preserved Methods
 
 Mimicked objects' instance methods are replaced with voided methods _except_ for instance methods defined on Ruby's `Object` class.
