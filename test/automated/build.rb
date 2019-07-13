@@ -7,6 +7,8 @@ context "Build" do
 
   replaced_methods = Controls::Subject::Class.implemented_methods
 
+
+
   context "Mimicked Class's Methods" do
     replaced_methods.each do |m|
       test "Replaced #{m}" do

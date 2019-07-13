@@ -1,10 +1,10 @@
 require_relative 'automated_init'
 
-context "Class" do
+context "Mimic" do
   subject = Controls::Subject::Class.example
-  mimic = Mimic.(subject).new
+  mimic = Mimic.(subject)
 
-  test "Is a subclass of the subject" do
+  test "Constructs the mimicked class" do
     assert(mimic.is_a?(subject))
   end
 end
