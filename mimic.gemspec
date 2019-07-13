@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 Gem::Specification.new do |s|
   s.name = 'evt-mimic'
-  s.summary = "Copy a class's interface and apply it to a new object that acts as a mimic"
+  s.summary = "Copy a class's instance interface to an anonymous, new object that acts as a substitutable mimic for the class"
   s.version = '0.0.0.0'
   s.description = ' '
 

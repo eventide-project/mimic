@@ -1,6 +1,6 @@
 # mimic
 
-Copy a class's interface and apply it to a new object that acts as a mimic
+Copy a class's instance interface to an anonymous, new object that acts as a substitutable mimic for the class
 
 ## Example
 
