@@ -3,7 +3,7 @@ module Mimic
     def self.call(subject_class)
       cls = Class.new(subject_class)
 
-      InstanceMethods.replace(cls)
+      RemoveMethods.(cls)
 
       cls
     end

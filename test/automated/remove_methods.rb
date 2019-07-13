@@ -3,11 +3,11 @@ require_relative 'automated_init'
 context "Remove Methods" do
   subject_class = Controls::Subject::Class::Anonymous.example
 
+  removed_methods = Controls::Subject::Class.implemented_methods
+
   RemoveMethods.(subject_class)
 
   context "Removed" do
-    removed_methods = [:a_method, :another_method]
-
     removed_methods.each do |m|
       test "#{m}" do
         refute(subject_class.instance_methods.include?(m))
@@ -16,18 +16,28 @@ context "Remove Methods" do
   end
 
   context "Preserved" do
-    removed_methods = [:a_method, :another_method]
-
     RemoveMethods.preserved.each do |m|
-      test "#{m}" do
-        assert(subject_class.instance_methods.include?(m))
+      assert_proc = proc { assert(subject_class.instance_methods.include?(m)) }
+
+      if ENV['VERBOSE'] == 'on'
+        test "#{m}" do
+          assert_proc.()
+        end
+      else
+        assert_proc.()
       end
+    end
+
+    if ENV['VERBOSE'] != 'on'
+      test "(Object class's instance methods)" do; end
     end
   end
 
-  context "Remaining Instance Methods" do
-    subject_class.instance_methods.sort.each do |m|
-      comment "#{m}"
+  if ENV['VERBOSE'] == 'on'
+    context "Remaining Instance Methods" do
+      subject_class.instance_methods.sort.each do |m|
+        comment "#{m}"
+      end
     end
   end
 end

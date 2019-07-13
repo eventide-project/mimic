@@ -10,6 +10,10 @@ module Mimic
           Example
         end
 
+        def self.implemented_methods
+          Example.instance_methods(false)
+        end
+
         module Anonymous
           def self.example
             ::Class.new(Example)
