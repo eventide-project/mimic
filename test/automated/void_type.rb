@@ -7,5 +7,7 @@ context "Void Type" do
         raises_error? Mimic::Void::Error
       end
     end
+
+    test "Can't be initialized (new raises error)"
   end
 end

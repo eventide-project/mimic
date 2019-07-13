@@ -1,10 +1,8 @@
 module Mimic
   module Controls
     module Subject
-      module Instance
-        def self.example
-          Class.example
-        end
+      def self.example
+        Class.example
       end
 
       module Class
@@ -12,12 +10,18 @@ module Mimic
           Example
         end
 
-        class Example
-          def a_method
+        module Anonymous
+          def self.example
+            ::Class.new(Example)
           end
+        end
+      end
 
-          def another_method
-          end
+      class Example
+        def a_method
+        end
+
+        def another_method
         end
       end
     end

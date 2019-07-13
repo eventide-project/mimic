@@ -1,3 +1,4 @@
-require 'mimic/mimic'
+require 'mimic/build'
 require 'mimic/void'
-require 'mimic/instance_methods'
+require 'mimic/remove_methods'
+require 'mimic/mimic'

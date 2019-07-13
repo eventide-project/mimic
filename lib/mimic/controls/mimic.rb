@@ -2,12 +2,12 @@ module Mimic
   module Controls
     module Mimic
       def self.example
-        Class.example.new
+        ::Mimic.(Subject::Class.example)
       end
 
       module Class
         def self.example
-          ::Mimic.(Subject::Class.example)
+          ::Mimic::Build.(Subject::Class.example)
         end
       end
     end
