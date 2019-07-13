@@ -7,8 +7,6 @@ context "Build" do
 
   replaced_methods = Controls::Subject::Class.implemented_methods
 
-
-
   context "Mimicked Class's Methods" do
     replaced_methods.each do |m|
       test "Replaced #{m}" do
@@ -19,7 +17,7 @@ context "Build" do
 
   context "Object's Instance Methods" do
     context "Preserved" do
-      RemoveMethods.preserved.each do |m|
+      Mimic.preserved_methods.each do |m|
         assert_proc = proc { assert(subject_class.instance_methods.include?(m)) }
 
         if ENV['VERBOSE'] == 'on'

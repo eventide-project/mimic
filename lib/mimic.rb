@@ -1,4 +1,6 @@
+require 'mimic/preserved_methods'
 require 'mimic/build'
 require 'mimic/void'
 require 'mimic/remove_methods'
+require 'mimic/void_methods'
 require 'mimic/mimic'
