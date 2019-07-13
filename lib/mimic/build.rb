@@ -5,7 +5,7 @@ module Mimic
 
       subject_methods = Mimic.subject_methods(cls)
 
-      RemoveMethods.(cls)
+      RemoveMethods.(cls, subject_methods)
       VoidMethods.(cls, subject_methods)
 
       cls

@@ -28,6 +28,11 @@ module Mimic
         def another_method
         end
       end
+
+      class MethodMissing
+        def method_missing(*)
+        end
+      end
     end
   end
 end

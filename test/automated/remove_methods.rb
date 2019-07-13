@@ -16,7 +16,10 @@ context "Remove Methods" do
   end
 
   context "Preserved Methods" do
-    Mimic.preserved_methods.each do |m|
+    preserved_methods = Mimic.preserved_methods
+    preserved_methods.delete(:method_missing)
+
+    preserved_methods.each do |m|
       assert_proc = proc { assert(subject_class.instance_methods.include?(m)) }
 
       if ENV['VERBOSE'] == 'on'
