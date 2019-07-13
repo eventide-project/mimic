@@ -1,3 +1,3 @@
 source ./library-symlinks.sh
 
-symlink_lib 'collection'
+symlink_lib 'mimic'
