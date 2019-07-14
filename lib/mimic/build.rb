@@ -1,7 +1,6 @@
 module Mimic
   module Build
     def self.call(subject_class, &blk)
-      # cls = Class.new(subject_class, &blk)
       cls = Class.build(subject_class, &blk)
 
       subject_methods = Mimic.subject_methods(cls)
