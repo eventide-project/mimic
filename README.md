@@ -14,7 +14,7 @@ end
 mimic = Mimic.(SomeClass)
 
 mimic.some_method
-# => #<Mimic::Void:0x...>
+# (does nothing)
 
 mimic.some_other_method
 # NameError (undefined local variable or method `some_other_method')
@@ -34,6 +34,9 @@ The purpose of this is to ensure that code that attempts to invoke any subsequen
 mimic = Mimic.(SomeClass)
 
 result = mimic.some_method
+
+puts result.class
+# => Mimic::Void
 
 result.any_method
 # => Mimic::Void::Error (Cannot invoke `any_method' on a void)
