@@ -17,7 +17,7 @@ mimic.some_method
 # (does nothing)
 
 mimic.some_other_method
-# NameError (undefined local variable or method `some_other_method')
+# => NameError (undefined local variable or method `some_other_method')
 
 mimic.is_a?(SomeClass)
 # => true
