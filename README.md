@@ -79,10 +79,12 @@ puts Mimic.preserved_methods
 Additionally, if the class being mimicked implements the `method_missing` method, it will not be replaced with a voided method. This makes it possible to construct a general purpose _null object_ implementation.
 
 ``` ruby
-mimic = Mimic.(SomeClass) do
+class SomeClass
   def method_missing(*)
   end
 end
+
+mimic = Mimic.(SomeClass)
 
 mimic.any_method
 # (does nothing)
