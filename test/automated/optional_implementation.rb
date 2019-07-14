@@ -1,7 +1,7 @@
 require_relative 'automated_init'
 
 context "Optional Implementation" do
-  subject_class = Controls::Subject::Class::Anonymous.example
+  subject_class = Controls::Subject::Class.example
 
   random_method_name = "method_#{SecureRandom.hex.downcase}"
 

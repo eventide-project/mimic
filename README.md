@@ -17,13 +17,13 @@ mimic.some_method
 # (does nothing)
 
 mimic.some_other_method
-# => NoMethodError (undefined method `some_other_method' for #<#<Class:0x..>:0x..>)
+# => undefined method `some_other_method' for #<Mimic::Class::SomeClass_0..:0x..> (NoMethodError)
 
 mimic.is_a?(SomeClass)
 # => true
 
 mimic.class
-# => #<#<Class:0x..>:0x..>
+# => Mimic::Class::SomeClass_0..
 ```
 
 ## Mimicked Methods and the Void Return Type
@@ -112,10 +112,10 @@ obj = SomeClass.new
 obj.some_dependency.()
 
 obj.some_method_that_doesnt_exist
-# => NoMethodError (undefined method `some_method_that_doesnt_exist' for #<#<Class:0x..>:0x..>)
+# => undefined method `some_method_that_doesnt_exist' for #<Mimic::Class::SomeDependencyClass_0..:0x..> (NoMethodError)
 
 obj.dependency.class
-# => #<#<Class:0x..>:0x..>
+# => Mimic::Class::SomeDependencyClass_0..
 ```
 
 ## Acknowledgment
