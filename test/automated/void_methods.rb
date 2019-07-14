@@ -1,7 +1,7 @@
 require_relative 'automated_init'
 
 context "Void Methods" do
-  subject_class = Controls::Subject::Class::Anonymous.example
+  subject_class = Controls::Subject::Class.example
 
   VoidMethods.(subject_class)
 
@@ -20,9 +20,10 @@ context "Void Methods" do
   end
 
   context "Subject Methods" do
+    void_methods = Mimic.subject_methods(subject_class)
+
     test "Subject class's implemented methods" do
-      void_methods = Mimic.subject_methods(subject_class)
-      assert(void_methods == implemented_methods)
+      assert(void_methods.sort == implemented_methods.sort)
     end
   end
 end

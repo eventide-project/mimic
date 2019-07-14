@@ -2,8 +2,9 @@ require_relative 'automated_init'
 
 context "Mimic" do
   subject_class = Controls::Subject::Class::Anonymous.example
+pp subject_class
   mimic = Mimic.(subject_class)
-
+pp mimic
   test "Constructs the mimicked class" do
     assert(mimic.is_a?(subject_class))
   end

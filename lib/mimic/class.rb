@@ -1,6 +1,6 @@
 module Mimic
   module Class
-    def self.get(subject_class, &blk)
+    def self.build(subject_class, &blk)
       define_class(subject_class, &blk)
     end
 
@@ -22,7 +22,11 @@ module Mimic
     end
 
     def self.class_name(cls, class_id)
-      "#{cls.name.gsub('::', '_')}_#{class_id}"
+      if cls.name.nil?
+        return "C#{SecureRandom.hex}"
+      else
+        return "#{cls.name.gsub('::', '_')}_#{class_id}"
+      end
     end
   end
 end

@@ -1,3 +1,5 @@
+require 'securerandom'
+
 require 'mimic/preserved_methods'
 require 'mimic/subject_methods'
 require 'mimic/class'
