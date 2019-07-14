@@ -22,6 +22,9 @@ mimic.some_other_method
 mimic.is_a?(SomeClass)
 # => true
 
+mimic.class
+# => #<#<Class:0x..>:0x..>
+
 ```
 
 ## Mimicked Methods and the Void Return Type
@@ -34,11 +37,10 @@ The purpose of this is to ensure that code that attempts to invoke any subsequen
 mimic = Mimic.(SomeClass)
 
 result = mimic.some_method
-
 puts result.class
 # => Mimic::Void
 
-result.any_method
+mimic.some_method.any_method
 # => Mimic::Void::Error (Cannot invoke `any_method' on a void)
 ```
 
@@ -68,7 +70,7 @@ mimic.class.a_class_method
 
 ## Preserved Methods
 
-Mimicked objects' instance methods are replaced with voided methods _except_ for instance methods defined on Ruby's `Object` class.
+Mimicked objects' instance methods are replaced with voided methods _except_ for instance methods defined on Ruby's `Object` class and the `method_missing` method.
 
 A list of methods that are preserved can be retrieved from the `Mimic::ReplaceMethods` module.
 
@@ -76,7 +78,9 @@ A list of methods that are preserved can be retrieved from the `Mimic::ReplaceMe
 puts Mimic.preserved_methods
 ```
 
-Additionally, if the class being mimicked implements the `method_missing` method, it will not be replaced with a voided method. This makes it possible to construct a general purpose _null object_ implementation.
+## Method Missing and the Null Object Mimic
+
+If the class being mimicked implements the `method_missing` method, it will not be replaced with a voided method. This makes it possible to construct a general purpose _null object_ implementation.
 
 ``` ruby
 class SomeClass
@@ -88,6 +92,21 @@ mimic = Mimic.(SomeClass)
 
 mimic.any_method
 # (does nothing)
+```
+
+## Uses
+
+The Mimic library is the substitute generator in the [Dependency](https://github.com/eventide-project/dependency) library. It's used for creating both null objects and mimics of declared dependencies.
+
+``` ruby
+class SomeClass
+  dependency :some_dependency, SomeDependencyClass
+end
+
+obj = SomeClass.new
+
+obj.dependency
+# => #<#<Class:0x..>:0x..>
 ```
 
 ## Acknowledgment
