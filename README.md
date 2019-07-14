@@ -24,7 +24,7 @@ mimic.is_a?(SomeClass)
 
 ```
 
-## Replaced Methods and the Void Return Type
+## Mimicked Methods and the Void Return Type
 
 Methods on a mimicked object are replaced with an implementation that returns an instance of `Mimic::Void`.
 
