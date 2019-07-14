@@ -17,14 +17,13 @@ mimic.some_method
 # (does nothing)
 
 mimic.some_other_method
-# => NameError (undefined local variable or method `some_other_method')
+# => NoMethodError (undefined method `some_other_method' for #<#<Class:0x..>:0x..>)
 
 mimic.is_a?(SomeClass)
 # => true
 
 mimic.class
 # => #<#<Class:0x..>:0x..>
-
 ```
 
 ## Mimicked Methods and the Void Return Type
@@ -99,13 +98,23 @@ mimic.any_method
 The Mimic library is the substitute generator in the [Dependency](https://github.com/eventide-project/dependency) library. It's used for creating both null objects and mimics of declared dependencies.
 
 ``` ruby
+class SomeDependencyClass
+  def call
+  end
+end
+
 class SomeClass
   dependency :some_dependency, SomeDependencyClass
 end
 
 obj = SomeClass.new
 
-obj.dependency
+obj.some_dependency.()
+
+obj.some_method_that_doesnt_exist
+# => NoMethodError (undefined method `some_method_that_doesnt_exist' for #<#<Class:0x..>:0x..>)
+
+obj.dependency.class
 # => #<#<Class:0x..>:0x..>
 ```
 
