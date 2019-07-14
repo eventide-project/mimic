@@ -76,6 +76,18 @@ A list of methods that are preserved can be retrieved from the `Mimic::ReplaceMe
 puts Mimic.preserved_methods
 ```
 
+Additionally, if the class being mimicked implements the `method_missing` method, it will not be replaced with a voided method. This makes it possible to construct a general purpose _null object_ implementation.
+
+``` ruby
+mimic = Mimic.(SomeClass) do
+  def method_missing(*)
+  end
+end
+
+mimic.any_method
+# (does nothing)
+```
+
 ## Acknowledgment
 
 The Eventide Project made use of the [Naught](https://github.com/avdi/naught) library for a number of years before implementing Mimic. Its implementation has been both instructive and inspirational for Mimic.
