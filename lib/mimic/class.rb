@@ -23,7 +23,7 @@ module Mimic
 
     def self.class_name(cls, class_id)
       if cls.name.nil?
-        return "C#{SecureRandom.hex}"
+        return "C#{class_id}"
       else
         return "#{cls.name.gsub('::', '_')}_#{class_id}"
       end

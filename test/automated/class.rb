@@ -8,11 +8,15 @@ context "Class Name" do
 
     class_name = cls.name
 
+    if ENV['VERBOSE'] == 'on'
+      pp class_name
+    end
+
     test "Based on the subject class name" do
       assert(class_name.include?("Mimic_Controls_Subject_Example_"))
     end
 
-    test "Nested in the Mimic::Class namespace" do
+    test "Member of the Mimic::Class namespace" do
       assert(class_name.start_with?("Mimic::Class"))
     end
   end
@@ -24,12 +28,16 @@ context "Class Name" do
 
     class_name = cls.name
 
+    if ENV['VERBOSE'] == 'on'
+      pp class_name
+    end
+
     test "Nested in the Mimic::Class namespace" do
       assert(class_name.start_with?("Mimic::Class"))
     end
 
-    test "Random name name" do
-      assert(class_name.start_with?("Mimic::Class::C"))
+    test "Synthetic class name is composed of the class's object ID" do
+      assert(class_name.end_with?("C#{cls.object_id.to_s}"))
     end
   end
 end
