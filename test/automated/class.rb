@@ -16,7 +16,7 @@ context "Class Name" do
       assert(class_name.include?("Mimic_Controls_Subject_Example_"))
     end
 
-    test "Member of the Mimic::Class namespace" do
+    test "In the Mimic::Class namespace" do
       assert(class_name.start_with?("Mimic::Class"))
     end
   end
@@ -32,11 +32,11 @@ context "Class Name" do
       pp class_name
     end
 
-    test "Nested in the Mimic::Class namespace" do
+    test "In the Mimic::Class namespace" do
       assert(class_name.start_with?("Mimic::Class"))
     end
 
-    test "Synthetic class name is composed of the class's object ID" do
+    test "Class name is synthesized from the mimic class's object ID" do
       assert(class_name.end_with?("C#{cls.object_id.to_s}"))
     end
   end
