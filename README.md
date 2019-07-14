@@ -92,7 +92,7 @@ mimic.any_method
 
 ## Acknowledgment
 
-The Eventide Project made use of the [Naught](https://github.com/avdi/naught) library for a number of years before implementing Mimic. Its implementation has been both instructive and inspirational for Mimic. The Naught library is a far more thorough implementation of the breadth of null object patterns.
+The Eventide Project made use of the [Naught](https://github.com/avdi/naught) library for a number of years before implementing Mimic. Its implementation has been both instructive and inspirational for Mimic. The Naught library is a far more thorough implementation of the breadth of null object patterns that address scenarios above and beyond what the Mimic library intends to address.
 
 ## License
 
