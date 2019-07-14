@@ -115,7 +115,7 @@ obj.some_method_that_doesnt_exist
 # => NoMethodError (undefined method `some_method_that_doesnt_exist' for #<#<Class:0x..>:0x..>)
 
 obj.dependency.class
-# => #<#<Class:0x..>:0x..>
+# => #<Mimic::SomeClass0x123..:0x123..>
 ```
 
 ## Acknowledgment
