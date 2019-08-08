@@ -1,7 +1,7 @@
 require_relative 'automated_init'
 
 context "Void Methods" do
-  subject_class = Controls::Subject::Class.example
+  subject_class = Controls::Subject.example
 
   VoidMethods.(subject_class)
 

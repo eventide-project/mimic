@@ -2,7 +2,7 @@ require_relative 'automated_init'
 
 context "Class Name" do
   context "Static" do
-    subject_class = Controls::Subject::Class.example
+    subject_class = Controls::Subject.example
 
     cls = Mimic::Class.build(subject_class)
 
