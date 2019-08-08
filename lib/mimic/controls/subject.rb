@@ -14,10 +14,11 @@ module Mimic
           Example.instance_methods(false)
         end
 
-        module Anonymous
-          def self.example
-            ::Class.new(Example)
-          end
+      end
+
+      module Anonymous
+        def self.example
+          ::Class.new(Example)
         end
       end
 
