@@ -2,22 +2,16 @@ module Mimic
   module Controls
     module Subject
       def self.example
-        Class.example
+        Example
       end
 
-      module Class
+      def self.implemented_methods
+        Example.instance_methods(false)
+      end
+
+      module Anonymous
         def self.example
-          Example
-        end
-
-        def self.implemented_methods
-          Example.instance_methods(false)
-        end
-
-        module Anonymous
-          def self.example
-            ::Class.new(Example)
-          end
+          ::Class.new(Example)
         end
       end
 

@@ -11,7 +11,7 @@ context "Method Missing" do
   end
 
   context "Mimic Doesn't Implement Method Missing" do
-    subject_class = Controls::Subject::Class.example
+    subject_class = Controls::Subject.example
     mimic = Mimic.(subject_class)
 
     test "Method missing is not implemented" do

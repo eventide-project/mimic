@@ -1,7 +1,7 @@
 require_relative 'automated_init'
 
 context "Mimic" do
-  subject_class = Controls::Subject::Class::Anonymous.example
+  subject_class = Controls::Subject::Anonymous.example
 
   mimic = Mimic.(subject_class)
 
@@ -10,7 +10,7 @@ context "Mimic" do
   end
 
   context "Implemented Methods are Voided" do
-    implemented_methods = Controls::Subject::Class.implemented_methods
+    implemented_methods = Controls::Subject.implemented_methods
 
     implemented_methods.each do |m|
       result = mimic.__send__(m)

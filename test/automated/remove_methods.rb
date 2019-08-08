@@ -1,12 +1,12 @@
 require_relative 'automated_init'
 
 context "Remove Methods" do
-  subject_class = Controls::Subject::Class::Anonymous.example
+  subject_class = Controls::Subject::Anonymous.example
 
   RemoveMethods.(subject_class)
 
   context "Removed" do
-    implemented_methods = Controls::Subject::Class.implemented_methods
+    implemented_methods = Controls::Subject.implemented_methods
 
     implemented_methods.each do |m|
       test "#{m}" do
