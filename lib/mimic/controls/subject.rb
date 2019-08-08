@@ -5,14 +5,15 @@ module Mimic
         Class.example
       end
 
+      def self.implemented_methods
+        Example.instance_methods(false)
+      end
+
       module Class
         def self.example
           Example
         end
 
-        def self.implemented_methods
-          Example.instance_methods(false)
-        end
 
       end
 

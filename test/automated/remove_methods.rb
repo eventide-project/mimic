@@ -6,7 +6,7 @@ context "Remove Methods" do
   RemoveMethods.(subject_class)
 
   context "Removed" do
-    implemented_methods = Controls::Subject::Class.implemented_methods
+    implemented_methods = Controls::Subject.implemented_methods
 
     implemented_methods.each do |m|
       test "#{m}" do

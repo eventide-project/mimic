@@ -7,7 +7,7 @@ context "Void Methods" do
 
   subject = subject_class.new
 
-  implemented_methods = Controls::Subject::Class.implemented_methods
+  implemented_methods = Controls::Subject.implemented_methods
 
   context "Implemented Methods are Voided" do
     implemented_methods.each do |m|
