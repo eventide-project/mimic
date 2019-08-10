@@ -10,7 +10,7 @@ context "Recorder" do
 
     context "Invocation" do
       test "Included in list of recorded invocations" do
-        assert(recorder.records.include?(invocation))
+        assert(recorder.invocations.include?(invocation))
       end
     end
   end

@@ -1,16 +1,21 @@
 module Mimic
   module Recorder
-    attr_writer :__records
-    def __records
-      @__records ||= []
+    attr_writer :__invocations
+    def __invocations
+      @__invocations ||= []
     end
-    alias :records :__records
-    alias :records= :__records=
+    alias :invocations :__invocations
+    alias :invocations= :__invocations=
 
     def __record(invocation)
-      __records << invocation
+      __invocations << invocation
     end
     alias :record :__record
+
+    def __invocation(method_name)
+      __invocations.find { |invocation| invocation.method_name == method_name }
+    end
+    alias :invocation :__invocation
 
     def __invoked?(method_name)
 fail
