@@ -11,5 +11,10 @@ module Mimic
       __records << invocation
     end
     alias :record :__record
+
+    def __invoked?(method_name)
+fail
+    end
+    alias :invoked? :__invoked?
   end
 end
