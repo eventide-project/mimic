@@ -1,11 +1,15 @@
 module Mimic
   module Build
-    def self.call(subject_class, &blk)
+    def self.call(subject_class, record: nil, &blk)
+      record = true if record.nil?
+
       cls = Class.build(subject_class, &blk)
 
       subject_methods = Mimic.subject_methods(cls)
 
       RemoveMethods.(cls, subject_methods)
+
+## TODO pass in record value so that methods can be defined with recording
       VoidMethods.(cls, subject_methods)
 
       cls
