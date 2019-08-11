@@ -12,8 +12,8 @@ context "Recorder" do
 
         detected_invocation = recorder.invocation(invocation.method_name)
 
-        test "Retrieved" do
-          refute(detected_invocation.nil?)
+        context "Retrieved" do
+          assert(detected_invocation == invocation)
         end
       end
 

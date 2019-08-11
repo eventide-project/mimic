@@ -9,11 +9,18 @@ context "Recorder" do
         recorder = Controls::Recorder.example
 
         recorder.record(invocation)
+        recorder.record(invocation)
 
-        detected_invocation = recorder.invocation(invocation.method_name)
+        detected_invocations = recorder.invocations(invocation.method_name)
 
-        test "Retrieved" do
-          refute(detected_invocation.nil?)
+        context "Retrieved" do
+          test "First" do
+            assert(detected_invocations[0] == invocation)
+          end
+
+          test "Second" do
+            assert(detected_invocations[1] == invocation)
+          end
         end
       end
 
@@ -21,11 +28,12 @@ context "Recorder" do
         recorder = Controls::Recorder.example
 
         recorder.record(invocation)
+        recorder.record(invocation)
 
-        detected_invocation = recorder.invocation(SecureRandom.hex)
+        detected_invocations = recorder.invocations(SecureRandom.hex)
 
         test "Not Retrieved" do
-          assert(detected_invocation.nil?)
+          assert(detected_invocations.empty?)
         end
       end
     end

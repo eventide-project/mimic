@@ -15,8 +15,8 @@ context "Recorder" do
             parameter_value == 1
         end
 
-        test "Retrieved" do
-          refute(detected_invocation.nil?)
+        context "Retrieved" do
+          assert(detected_invocation == invocation)
         end
       end
 
