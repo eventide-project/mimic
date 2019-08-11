@@ -9,14 +9,21 @@ context "Recorder" do
         recorder = Controls::Recorder.example
 
         recorder.record(invocation)
+        recorder.record(invocation)
 
-        detected_invocation = recorder.invocation(invocation.method_name) do |parameter_name, parameter_value|
+        detected_invocations = recorder.invocations(invocation.method_name) do |parameter_name, parameter_value|
           parameter_name == :some_parameter &&
             parameter_value == 1
         end
 
-        test "Retrieved" do
-          refute(detected_invocation.nil?)
+        context "Retrieved" do
+          test "First" do
+            assert(detected_invocations[0] == invocation)
+          end
+
+          test "Second" do
+            assert(detected_invocations[1] == invocation)
+          end
         end
       end
 
@@ -25,13 +32,13 @@ context "Recorder" do
 
         recorder.record(invocation)
 
-        detected_invocation = recorder.invocation(SecureRandom.hex) do |parameter_name, parameter_value|
+        detected_invocations = recorder.invocations(SecureRandom.hex) do |parameter_name, parameter_value|
           parameter_name == :some_parameter &&
             parameter_value == 1
         end
 
         test "Not Retrieved" do
-          assert(detected_invocation.nil?)
+          assert(detected_invocations.empty?)
         end
       end
 
@@ -40,13 +47,13 @@ context "Recorder" do
 
         recorder.record(invocation)
 
-        detected_invocation = recorder.invocation(invocation.method_name) do |parameter_name, parameter_value|
+        detected_invocations = recorder.invocations(invocation.method_name) do |parameter_name, parameter_value|
           parameter_name == :some_parameter &&
             parameter_value == SecureRandom.hex
         end
 
         test "Not Retrieved" do
-          assert(detected_invocation.nil?)
+          assert(detected_invocations.empty?)
         end
       end
     end
