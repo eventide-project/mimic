@@ -40,8 +40,9 @@ module Mimic
     end
     alias :invocations :__invocations
 
-    def __invoked?(method_name)
-fail
+    def __invoked?(method_name, &blk)
+      invocation = invocation(method_name, &blk)
+      !invocation.nil?
     end
     alias :invoked? :__invoked?
   end

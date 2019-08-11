@@ -1,7 +1,7 @@
 require_relative '../../../automated_init'
 
 context "Recorder" do
-  context "Find" do
+  context "Retrieval" do
     context "Many Invocations" do
       context "Method Name and Parameter Block" do
         invocation = Controls::Invocation.example
@@ -32,6 +32,7 @@ context "Recorder" do
           recorder = Controls::Recorder.example
 
           recorder.record(invocation)
+          recorder.record(invocation)
 
           detected_invocations = recorder.invocations(SecureRandom.hex) do |parameter_name, parameter_value|
             parameter_name == :some_parameter &&
@@ -46,6 +47,7 @@ context "Recorder" do
         context "Not Recorded (Parameter)" do
           recorder = Controls::Recorder.example
 
+          recorder.record(invocation)
           recorder.record(invocation)
 
           detected_invocations = recorder.invocations(invocation.method_name) do |parameter_name, parameter_value|
