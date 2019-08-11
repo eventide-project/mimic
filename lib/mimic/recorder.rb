@@ -23,7 +23,11 @@ module Mimic
     end
     alias :invocation :__invocation
 
-    def __invocations(method_name, &blk)
+    def __invocations(method_name=nil, &blk)
+      if method_name.nil? && blk.nil?
+        return __records
+      end
+
       invocations = __records.select { |invocation| invocation.method_name == method_name }
 
       if blk.nil?
