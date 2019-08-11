@@ -23,9 +23,13 @@ module Mimic
         return nil
       end
 
-      invocation.parameters.find { |k, v| blk.(k, v)}
+      detected = invocation.parameters.any? { |k, v| blk.(k, v)}
 
-      ## FAIL if more than one
+      unless detected
+        return nil
+      end
+
+      invocation
     end
     alias :invocation :__invocation
 
