@@ -13,23 +13,13 @@ module Mimic
     alias :record :__record
 
     def __invocation(method_name, &blk)
-      invocation = __records.find { |invocation| invocation.method_name == method_name }
+      invocations = __invocations(method_name, &blk)
 
-      if blk.nil?
-        return invocation
-      end
-
-      if invocation.nil?
+      if invocations.empty?
         return nil
       end
 
-      detected = invocation.parameters.any? { |k, v| blk.(k, v)}
-
-      unless detected
-        return nil
-      end
-
-      invocation
+      return invocations.first
     end
     alias :invocation :__invocation
 
