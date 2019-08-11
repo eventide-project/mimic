@@ -31,7 +31,7 @@ context "Recorder" do
               parameter_value == 1
           end
 
-          test "Not Retrieved" do
+          test "Not retrieved" do
             assert(detected_invocation.nil?)
           end
         end
@@ -46,7 +46,7 @@ context "Recorder" do
               parameter_value == SecureRandom.hex
           end
 
-          test "Not Retrieved" do
+          test "Not retrieved" do
             assert(detected_invocation.nil?)
           end
         end

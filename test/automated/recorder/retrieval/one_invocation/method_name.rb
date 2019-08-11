@@ -25,7 +25,7 @@ context "Recorder" do
 
           detected_invocation = recorder.invocation(SecureRandom.hex)
 
-          test "Not Retrieved" do
+          test "Not retrieved" do
             assert(detected_invocation.nil?)
           end
         end
