@@ -41,7 +41,7 @@ module Mimic
     alias :invocations :__invocations
 
     def __invoked?(method_name, &blk)
-      invocation = invocation(method_name, &blk)
+      invocation = __invocation(method_name, &blk)
       !invocation.nil?
     end
     alias :invoked? :__invoked?
