@@ -24,6 +24,8 @@ module Mimic
       end
 
       invocation.parameters.find { |k, v| blk.(k, v)}
+
+      ## FAIL if more than one
     end
     alias :invocation :__invocation
 
