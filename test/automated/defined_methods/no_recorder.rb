@@ -1,29 +1,31 @@
 require_relative '../automated_init'
 
 context "Define Methods" do
-  subject_class = Controls::Subject.example
+  context "No Recorder" do
+    subject_class = Controls::Subject.example
 
-  DefineMethods.(subject_class)
+    DefineMethods.(subject_class)
 
-  subject = subject_class.new
+    subject = subject_class.new
 
-  implemented_methods = Controls::Subject.implemented_methods
+    implemented_methods = Controls::Subject.implemented_methods
 
-  context "Implemented Methods are Voided" do
-    implemented_methods.each do |m|
-      result = subject.__send__(m)
+    context "Implemented Methods are Voided" do
+      implemented_methods.each do |m|
+        result = subject.__send__(m)
 
-      test "#{m}" do
-        assert(result.instance_of?(Void))
+        test "#{m}" do
+          assert(result.instance_of?(Void))
+        end
       end
     end
-  end
 
-  context "Subject Methods" do
-    void_methods = Mimic.subject_methods(subject_class)
+    context "Subject Methods" do
+      void_methods = Mimic.subject_methods(subject_class)
 
-    test "Subject class's implemented methods" do
-      assert(void_methods.sort == implemented_methods.sort)
+      test "Subject class's implemented methods" do
+        assert(void_methods.sort == implemented_methods.sort)
+      end
     end
   end
 end
