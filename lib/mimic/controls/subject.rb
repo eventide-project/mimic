@@ -9,17 +9,17 @@ module Mimic
         Example.instance_methods(false)
       end
 
-      module Anonymous
-        def self.example
-          ::Class.new(Example)
-        end
-      end
-
       class Example
         def a_method
         end
 
         def another_method
+        end
+      end
+
+      module Anonymous
+        def self.example
+          ::Class.new(Example)
         end
       end
 
