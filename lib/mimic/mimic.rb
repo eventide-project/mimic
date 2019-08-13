@@ -1,6 +1,6 @@
 module Mimic
-  def self.call(subject_class, &blk)
-    cls = Build.(subject_class, &blk)
+  def self.call(subject_class, record: nil, &blk)
+    cls = Build.(subject_class, record: record, &blk)
     cls.new
   end
 end

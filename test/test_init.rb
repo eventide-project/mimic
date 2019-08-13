@@ -20,3 +20,7 @@ require 'securerandom'
 
 include Mimic
 require 'mimic/controls'
+
+def __
+  fail '*' * 25
+end
