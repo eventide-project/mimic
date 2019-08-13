@@ -9,6 +9,12 @@ module Mimic
 
       RemoveMethods.(cls, subject_methods)
 
+      if record
+        cls.class_exec do
+          include Recorder
+        end
+      end
+
 ## TODO pass in record value so that methods can be defined with recording
       VoidMethods.(cls, subject_methods)
 
