@@ -9,13 +9,13 @@ context "Mimic" do
     assert(mimic.is_a?(subject_class))
   end
 
-  context "Implemented Methods are Voided" do
+  context "Implemented Methods" do
     implemented_methods = Controls::Subject.implemented_methods
 
     implemented_methods.each do |m|
       result = mimic.__send__(m)
 
-      test "#{m}" do
+      test "Voided #{m}" do
         assert(result.instance_of?(Void))
       end
     end

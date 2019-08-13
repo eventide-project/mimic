@@ -15,7 +15,7 @@ module Mimic
         end
       end
 
-      DefineMethods.(cls, subject_methods)
+      DefineMethods.(cls, subject_methods, record: record)
 
       cls
     end

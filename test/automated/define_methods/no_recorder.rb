@@ -10,16 +10,17 @@ context "Define Methods" do
 
     implemented_methods = Controls::Subject.implemented_methods
 
-    context "Implemented Methods are Voided" do
+    context "Implemented Methods" do
       implemented_methods.each do |m|
         result = subject.__send__(m)
 
-        test "#{m}" do
+        test "Voided #{m}" do
           assert(result.instance_of?(Void))
         end
       end
     end
 
+## TODO What's this do?
     context "Subject Methods" do
       void_methods = Mimic.subject_methods(subject_class)
 
