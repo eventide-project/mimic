@@ -7,14 +7,12 @@ context "Defined Methods" do
 
   implemented_methods = Controls::Subject.implemented_methods
 
-  context "Implemented Methods" do
+  context "Voided" do
     implemented_methods.each do |m|
-      context "#{m}" do
-        result = subject.__send__(m)
+      result = subject.__send__(m)
 
-        test "Voided" do
-          assert(result.instance_of?(Void))
-        end
+      test "#{m}" do
+        assert(result.instance_of?(Void))
       end
     end
   end

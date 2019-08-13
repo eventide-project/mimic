@@ -8,14 +8,12 @@ context "Define Methods" do
 
     implemented_methods = Controls::Subject.implemented_methods
 
-    context "Implemented Methods" do
+    test "Interactions are recorded" do
       implemented_methods.each do |m|
-        context "#{m}" do
-          result = subject.__send__(m)
+        result = subject.__send__(m)
 
-          test "Interactions are recorded" do
-            assert(subject.invoked?(m))
-          end
+        test "#{m}" do
+          assert(subject.invoked?(m))
         end
       end
     end
