@@ -13,11 +13,7 @@ context "Define Methods" do
         context "#{m}" do
           result = subject.__send__(m)
 
-          test "Voided" do
-            assert(result.instance_of?(Void))
-          end
-
-          test "Recorded interactions" do
+          test "Interactions are recorded" do
             assert(subject.invoked?(m))
           end
         end
