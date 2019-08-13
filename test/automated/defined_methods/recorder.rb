@@ -4,14 +4,11 @@ context "Define Methods" do
   context "Recorder" do
     subject_class = Controls::Subject.example
 
-    DefineMethods.(subject_class, record: true)
+    subject = Mimic.(subject_class, record: true)
 
     implemented_methods = Controls::Subject.implemented_methods
 
     context "Implemented Methods" do
-      subject = subject_class.new
-      subject.extend Mimic::Recorder
-
       implemented_methods.each do |m|
         context "#{m}" do
           result = subject.__send__(m)

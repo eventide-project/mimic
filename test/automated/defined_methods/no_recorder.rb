@@ -1,12 +1,10 @@
 require_relative '../automated_init'
 
-context "Define Methods" do
+context "Defined Methods" do
   context "No Recorder" do
     subject_class = Controls::Subject.example
 
-    DefineMethods.(subject_class)
-
-    subject = subject_class.new
+    subject = Mimic.(subject_class)
 
     implemented_methods = Controls::Subject.implemented_methods
 
