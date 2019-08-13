@@ -16,7 +16,7 @@ module Mimic
       end
 
 ## TODO pass in record value so that methods can be defined with recording
-      VoidMethods.(cls, subject_methods)
+      DefineMethods.(cls, subject_methods)
 
       cls
     end

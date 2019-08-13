@@ -1,9 +1,9 @@
 require_relative 'automated_init'
 
-context "Void Methods" do
+context "Define Methods" do
   subject_class = Controls::Subject.example
 
-  VoidMethods.(subject_class)
+  DefineMethods.(subject_class)
 
   subject = subject_class.new
 
