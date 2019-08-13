@@ -12,10 +12,12 @@ context "Define Methods" do
 
     context "Implemented Methods" do
       implemented_methods.each do |m|
-        result = subject.__send__(m)
+        context "#{m}" do
+          result = subject.__send__(m)
 
-        test "Voided #{m}" do
-          assert(result.instance_of?(Void))
+          test "Voided" do
+            assert(result.instance_of?(Void))
+          end
         end
       end
     end

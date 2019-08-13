@@ -13,10 +13,12 @@ context "Mimic" do
     implemented_methods = Controls::Subject.implemented_methods
 
     implemented_methods.each do |m|
-      result = mimic.__send__(m)
+      context "#{m}" do
+        result = mimic.__send__(m)
 
-      test "Voided #{m}" do
-        assert(result.instance_of?(Void))
+        test "Voided" do
+          assert(result.instance_of?(Void))
+        end
       end
     end
   end
