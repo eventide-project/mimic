@@ -9,6 +9,8 @@ context "Mimic" do
     assert(mimic.is_a?(subject_class))
   end
 
+## TODO obsolete as of the recorder implementation
+## This is only one case (of two) now
   context "Implemented Methods" do
     implemented_methods = Controls::Subject.implemented_methods
 
