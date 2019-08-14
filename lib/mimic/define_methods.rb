@@ -13,6 +13,7 @@ module Mimic
     def self.define_method(cls, method_name, record)
       cls.define_method(method_name) do
         if record
+__ 'match sigs'
           invocation = Invocation.build(binding)
           __record(invocation)
         end

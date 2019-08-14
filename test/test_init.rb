@@ -21,6 +21,13 @@ require 'securerandom'
 include Mimic
 require 'mimic/controls'
 
-def __
-  fail '*' * 25
+def __(text=nil)
+  text ||= ''
+
+  unless text.empty?
+    text << ' '
+  end
+
+  msg = text.ljust(30, '*')
+  fail(msg)
 end
