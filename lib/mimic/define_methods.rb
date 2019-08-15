@@ -1,7 +1,7 @@
 module Mimic
   module DefineMethods
     def self.call(cls, subject_methods=nil, record: nil)
-      subject_methods ||= Mimic.subject_methods(cls)
+      # subject_methods ||= Mimic.subject_methods(cls)
 
       subject_methods.each do |mthd|
         define_method(cls, mthd, record)
@@ -12,7 +12,6 @@ module Mimic
 
     def self.define_method(cls, mthd, record)
       method_definition = method_definition(mthd, record)
-
       cls.class_eval(method_definition)
     end
 
