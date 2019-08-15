@@ -1,4 +1,6 @@
+require 'mimic/controls/subject'
+require 'mimic/controls/subject/no_parameters'
+require 'mimic/controls/subject/positional_parameters'
 require 'mimic/controls/invocation'
 require 'mimic/controls/recorder'
-require 'mimic/controls/subject'
 require 'mimic/controls/mimic'

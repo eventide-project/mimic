@@ -1,6 +1,6 @@
 require_relative '../automated_init'
 
-context "Defined Methods" do
+context "Define Methods" do
   subject_class = Controls::Subject.example
 
   subject = Mimic.(subject_class)
