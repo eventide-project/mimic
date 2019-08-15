@@ -11,12 +11,7 @@ module Mimic
     end
 
     def self.define_method(cls, method_name, record)
-__ 'generate method with eval'
-
-
-
-
-      cls.define_method(method_name) do
+      cls.define_method(method_name) do |*|
         if record
           invocation = Invocation.build(binding)
           __record(invocation)
