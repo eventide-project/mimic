@@ -8,24 +8,15 @@ context "Define Methods" do
 
       mimic = Mimic.(subject_class)
 
-      subject_methods = Mimic.subject_methods(subject_class)
+      method_name = :some_method
 
-      subject_methods.each do |subject_method_name|
-        context "#{subject_method_name} method" do
-          subject_method = subject.method(subject_method_name)
-          mimic_method = mimic.method(subject_method_name)
+      context "#{method_name} method" do
+        parameters_are_equal = Proofs::Method::Parameters.equal?(
+          mimic, subject, method_name
+        )
 
-          subject_parameters = subject_method.parameters
-          mimic_parameters = mimic_method.parameters
-
-          test_description = 'parameter'
-          if subject_parameters.length > 0
-            test_description << 's'
-          end
-
-          test "#{subject_method_name} #{test_description}" do
-            assert(mimic_parameters == subject_parameters)
-          end
+        test "#{method_name} parameters" do
+          assert(parameters_are_equal)
         end
       end
     end

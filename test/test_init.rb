@@ -20,6 +20,7 @@ require 'securerandom'
 
 include Mimic
 require 'mimic/controls'
+require 'mimic/proofs'
 
 def __(text=nil)
   text ||= ''
@@ -28,6 +29,6 @@ def __(text=nil)
     text << ' '
   end
 
-  msg = text.ljust(30, '*')
+  msg = text.ljust(35, '*')
   fail(msg)
 end
