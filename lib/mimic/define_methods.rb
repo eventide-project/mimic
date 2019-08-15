@@ -40,15 +40,16 @@ module Mimic
     end
 
     def self.parameter_signature(parameter)
-pp parameter
       type = parameter[0]
-      name = parameter.fetch(1) { :* }
+      name = parameter.fetch(1) { nil }
 
       case type
       when :req
         return "#{name}"
+      when :rest
+        return '*args'
       else
-        raise '*** unknown param sig'
+        raise '!!!!! unknown param sig'
       end
     end
 
