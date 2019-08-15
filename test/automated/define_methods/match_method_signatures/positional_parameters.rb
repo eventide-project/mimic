@@ -8,6 +8,8 @@ context "Define Methods" do
 
       mimic = Mimic.(subject_class)
 
+mimic.some_method(1,1)
+
       method_name = :some_method
 
       context "#{method_name} method" do

@@ -9,6 +9,8 @@ module Mimic
 
       RemoveMethods.(cls, subject_methods)
 
+## TODO goes in Class.build
+## It's about the class def
       if record
         cls.class_exec do
           include Recorder
