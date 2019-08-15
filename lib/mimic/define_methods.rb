@@ -40,12 +40,20 @@ module Mimic
     end
 
     def self.parameter_signature(parameter)
+
+
+pp parameter
+
+
+
       type = parameter[0]
       name = parameter.fetch(1) { nil }
 
       case type
       when :req
         return "#{name}"
+      when :keyreq
+        return "#{name}:"
       when :rest
         return '*args'
       else
@@ -69,25 +77,3 @@ module Mimic
   end
 end
 
-__END__
-
-target_class.class_eval(initializer_definition)
-
-def initializer_definition
-  "
-    def initialize(#{parameter_list})
-      #{variable_assignment_statements}
-    end
-  "
-end
-
-    def self.___define_method(cls, method_name, record)
-      cls.define_method(method_name) do |*|
-        if record
-          invocation = Invocation.build(binding)
-          __record(invocation)
-        end
-
-        Void.new
-      end
-    end

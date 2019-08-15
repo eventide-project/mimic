@@ -1,9 +1,9 @@
 module Mimic
   module Controls
     module Subject
-      module NoParameters
+      module NamedParameters
         class Example
-          def some_method
+          def some_method(some_parameter:, some_other_parameter:)
           end
         end
       end
