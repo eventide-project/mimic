@@ -1,7 +1,7 @@
 module Mimic
   module DefineMethods
     def self.call(cls, subject_methods=nil, record: nil)
-      # subject_methods ||= Mimic.subject_methods(cls)
+      subject_methods ||= Mimic.subject_methods(cls)
 
       subject_methods.each do |mthd|
         define_method(cls, mthd, record)
@@ -32,14 +32,18 @@ module Mimic
     def self.parameter_list(parameters)
       parameter_list = ''
       parameters.each do |parameter|
-        parameter_signature = parameter_signature(*parameter)
+        parameter_signature = parameter_signature(parameter)
         parameter_list << "#{parameter_signature}, "
       end
 
       parameter_list[0...-2]
     end
 
-    def self.parameter_signature(type, name)
+    def self.parameter_signature(parameter)
+pp parameter
+      type = parameter[0]
+      name = parameter.fetch(1) { :* }
+
       case type
       when :req
         return "#{name}"
