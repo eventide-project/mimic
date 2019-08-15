@@ -47,7 +47,7 @@ pp parameter
 
 
       type = parameter[0]
-      name = parameter.fetch(1) { nil }
+      name = parameter.fetch(1) { :args }
 
       case type
       when :req
@@ -55,7 +55,7 @@ pp parameter
       when :keyreq
         return "#{name}:"
       when :rest
-        return '*args'
+        return "*#{name}"
       else
         raise '!!!!! unknown param sig'
       end
