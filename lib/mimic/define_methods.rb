@@ -58,6 +58,8 @@ pp parameter
         return "*#{name}"
       when :keyrest
         return "**#{name}"
+      when :block
+        return "&#{name}"
       else
         raise '!!!!! unknown param sig'
       end
