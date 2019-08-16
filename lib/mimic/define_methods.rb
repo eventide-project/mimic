@@ -40,12 +40,6 @@ module Mimic
     end
 
     def self.parameter_signature(parameter)
-
-
-pp parameter
-
-
-
       type = parameter[0]
       name = parameter.fetch(1) { :args }
 
