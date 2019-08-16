@@ -26,6 +26,115 @@ mimic.class
 # => Mimic::Class::SomeClass_0..
 ```
 
+## Method Signatures
+
+A mimicked method will have the same signature as the source method.
+
+``` ruby
+class SomeClass
+  def some_method(some_parameter, some_other_parameter)
+  end
+end
+
+mimic = Mimic.(SomeClass)
+
+mimic.some_method
+# => `some_method': wrong number of arguments (given 0, expected 2) (ArgumentError)
+```
+
+## Recording Invocations of a Mimic Object
+
+A mimic can be optionally configured to to record invocations made against it.
+
+Recording is activated using the `record` named parameter.
+
+``` ruby
+class SomeClass
+  def some_method(some_parameter, some_other_parameter)
+  end
+end
+
+mimic = Mimic.(SomeClass, record: true)
+```
+
+When the mimic's methods are invoked, the invocation and its arguments will be recorded.
+
+``` ruby
+mimic.some_method('some argument', 'some other argument')
+
+mimic.invocation(:some_method)
+# => #<Invocation:0x...
+ @method_name=:some_method,
+ @parameters={:some_parameter=>"some argument", :some_other_parameter=>"some other argument"}>
+
+mimic.invocation(:some_random_method)
+# => nil
+```
+
+The invocation can be retrieved based on parameter values.
+
+``` ruby
+mimic.some_method('some argument', 'some other argument')
+
+mimic.invocation(:some_method) do |parameter_name, parameter_value|
+  parameter_name == :some_parameter &&
+    parameter_value == 'some argument'
+end
+# => #<Invocation:0x...
+ @method_name=:some_method,
+ @parameters={:some_parameter=>"some argument", :some_other_parameter=>"some other argument"}>
+```
+
+The mimic provides predicates for detecting whether an invocation has been made.
+
+``` ruby
+mimic.some_method('some argument', 'some other argument')
+
+mimic.invoked?(:some_method)
+# => true
+
+mimic.invoked?(:some_random_method)
+# => false
+
+mimic.invoked?(:some_method) do |parameter_name, parameter_value|
+  parameter_name == :some_parameter &&
+    parameter_value == 'some argument'
+end
+# => true
+```
+
+If a method is invoked more than once, the multiple invocation records can be retrieved.
+
+``` ruby
+mimic.some_method('some argument', 'some other argument')
+mimic.some_method('another argument', 'yet another argument')
+
+mimic.invocations(:some_method)
+# => [#<Invocation:0x...
+  @method_name=:some_method,
+  @parameters={:some_parameter=>"some argument", :some_other_parameter=>"some other argument"}>,
+ #<Invocation:0x...
+  @method_name=:some_method,
+  @parameters={:some_parameter=>"another argument", :some_other_parameter=>"yet another argument"}>]
+
+mimic.invocations(:some_method) do |parameter_name, parameter_value|
+  parameter_name == :some_parameter &&
+    parameter_value == 'some argument'
+end
+# => [#<Invocation:0x...
+  @method_name=:some_method,
+  @parameters={:some_parameter=>"some argument", :some_other_parameter=>"some other argument"}>,
+ #<Invocation:0x...
+  @method_name=:some_method,
+  @parameters={:some_parameter=>"another argument", :some_other_parameter=>"yet another argument"}>]
+```
+
+The methods of the recorder may conflict with the methods implemented on the mimicked class. If so, a second set of method names may be used:
+
+- __invocation
+- __invocations
+- __invoked?
+
 ## Mimicked Methods and the Void Return Type
 
 Methods on a mimicked object are replaced with an implementation that returns an instance of `Mimic::Void`.
