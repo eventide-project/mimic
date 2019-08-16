@@ -56,6 +56,8 @@ pp parameter
         return "#{name}:"
       when :rest
         return "*#{name}"
+      when :keyrest
+        return "**#{name}"
       else
         raise '!!!!! unknown param sig'
       end
