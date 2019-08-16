@@ -4,6 +4,7 @@ module Mimic
       module Parameters
         def self.equal?(compare, control, method_name)
           control_method = control.method(method_name)
+
           control_parameters = control_method.parameters
 
           compare_method = compare.method(method_name)

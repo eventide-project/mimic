@@ -1,5 +1,7 @@
 module Mimic
   module DefineMethods
+    Error = ::Class.new(RuntimeError)
+
     def self.call(cls, subject_methods=nil, record: nil)
       subject_methods ||= Mimic.subject_methods(cls)
 
@@ -55,7 +57,7 @@ module Mimic
       when :block
         return "&#{name}"
       else
-        raise '!!!!! unknown param sig'
+        raise Error, "Unknown parameter type (Name: #{name.inspect}, Type: #{type.inspect})"
       end
     end
 
