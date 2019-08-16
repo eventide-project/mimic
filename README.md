@@ -17,13 +17,13 @@ mimic.some_method
 # (does nothing)
 
 mimic.some_other_method
-# => undefined method `some_other_method' for #<Mimic::Class::SomeClass_0..:0x..> (NoMethodError)
+# => undefined method `some_other_method' for #<Mimic::Class::SomeClass_0...:0x...> (NoMethodError)
 
 mimic.is_a?(SomeClass)
 # => true
 
 mimic.class
-# => Mimic::Class::SomeClass_0..
+# => Mimic::Class::SomeClass_0...
 ```
 
 ## Method Signatures
