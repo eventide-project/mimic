@@ -11,7 +11,7 @@ context "Define Methods" do
       method_name = :some_method
 
       context "#{method_name} method" do
-        parameters_are_equal = Proofs::Method::Parameters.equal?(
+        parameters_are_equal = Predicates::Method::Parameters.equal?(
           mimic, subject, method_name
         )
 

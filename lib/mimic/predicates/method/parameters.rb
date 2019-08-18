@@ -1,5 +1,5 @@
 module Mimic
-  module Proofs
+  module Predicates
     module Method
       module Parameters
         def self.equal?(compare, control, method_name)

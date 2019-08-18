@@ -20,7 +20,7 @@ require 'securerandom'
 
 include Mimic
 require 'mimic/controls'
-require 'mimic/proofs'
+require 'mimic/predicates'
 
 def __(text=nil)
   text ||= ''
