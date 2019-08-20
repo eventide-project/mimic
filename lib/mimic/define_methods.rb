@@ -46,8 +46,12 @@ module Mimic
       name = parameter.fetch(1) { :args }
 
       case type
+      when :opt
+        return "#{name}=nil"
       when :req
         return "#{name}"
+      when :key
+        return "#{name}: nil"
       when :keyreq
         return "#{name}:"
       when :rest

@@ -3,7 +3,7 @@ module Mimic
     module Subject
       module PositionalParameters
         class Example
-          def some_method(some_parameter, some_other_parameter)
+          def some_method(some_parameter, some_other_parameter=nil)
           end
         end
       end
