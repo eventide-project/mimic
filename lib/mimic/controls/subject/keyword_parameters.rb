@@ -1,9 +1,9 @@
 module Mimic
   module Controls
     module Subject
-      module OptionalNamedParameters
+      module KeywordParameters
         class Example
-          def some_method(some_parameter: nil, some_other_parameter: nil)
+          def some_method(some_parameter:, some_other_parameter:)
           end
         end
       end

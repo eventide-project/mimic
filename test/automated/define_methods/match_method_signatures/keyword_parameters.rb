@@ -2,8 +2,8 @@ require_relative '../../automated_init'
 
 context "Define Methods" do
   context "Match Method Signature" do
-    context "Optional Named Parameters" do
-      subject_class = Controls::Subject::OptionalNamedParameters::Example
+    context "Keyword Parameters" do
+      subject_class = Controls::Subject::KeywordParameters::Example
       subject = subject_class.new
 
       mimic = Mimic.(subject_class)
