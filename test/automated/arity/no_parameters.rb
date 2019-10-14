@@ -8,8 +8,8 @@ context "Mimic" do
       mimic = Mimic.(subject_class)
 
       test "Not an error" do
-        refute proc { mimic.some_method(1, 11) } do
-          raises_error? ArgumentError
+        refute_raises ArgumentError do
+          mimic.some_method(1, 11)
         end
       end
     end

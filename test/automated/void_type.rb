@@ -3,8 +3,8 @@ require_relative 'automated_init'
 context "Void Type" do
   context "Invocation" do
     test "Is an error" do
-      assert proc { Mimic::Void.new.any_method } do
-        raises_error? Mimic::Void::Error
+      assert_raises Mimic::Void::Error do
+        Mimic::Void.new.any_method
       end
     end
   end

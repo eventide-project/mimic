@@ -7,8 +7,8 @@ context "Define Methods" do
     parameter = [parameter_type, parameter_name]
 
     test "Is an error" do
-      assert proc { DefineMethods.parameter_signature(parameter) } do
-        raises_error? DefineMethods::Error
+      assert_raises DefineMethods::Error do
+        DefineMethods.parameter_signature(parameter)
       end
     end
   end
