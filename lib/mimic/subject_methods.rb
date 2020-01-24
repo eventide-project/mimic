@@ -6,5 +6,7 @@ module Mimic
     instance_methods = instance_method_names.map do |method_name|
       cls.instance_method(method_name)
     end
+
+    instance_methods
   end
 end
