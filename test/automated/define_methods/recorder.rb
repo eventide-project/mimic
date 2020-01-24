@@ -10,7 +10,7 @@ context "Define Methods" do
 
     test "Interactions are recorded" do
       implemented_methods.each do |m|
-        result = subject.__send__(m)
+        subject.__send__(m)
 
         test "#{m}" do
           assert(subject.invoked?(m))
