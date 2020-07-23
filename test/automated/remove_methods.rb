@@ -20,27 +20,16 @@ context "Remove Methods" do
     preserved_methods.delete(:method_missing)
 
     preserved_methods.each do |m|
-      assert_proc = proc { assert(subject_class.instance_methods.include?(m)) }
+      detail "#{m}"
 
-      if ENV['VERBOSE'] == 'on'
-        test "#{m}" do
-          assert_proc.()
-        end
-      else
-        assert_proc.()
+      test do
+        assert(subject_class.instance_methods.include?(m))
       end
-    end
-
-    if ENV['VERBOSE'] != 'on'
-      test "(Object class's instance methods)" do; end
     end
   end
 
-  if ENV['VERBOSE'] == 'on'
-    context "Remaining Instance Methods" do
-      subject_class.instance_methods.sort.each do |m|
-        comment "#{m}"
-      end
-    end
+  detail "Remaining Instance Methods"
+  subject_class.instance_methods.sort.each do |m|
+    detail "#{m}"
   end
 end
