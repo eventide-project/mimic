@@ -17,6 +17,11 @@ module Mimic
         end
       end
 
+      class Initialized
+        def initialize(a)
+        end
+      end
+
       module Anonymous
         def self.example
           ::Class.new(Example)
