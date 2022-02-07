@@ -120,10 +120,7 @@ mimic.invocations(:some_method) do |parameter_name, parameter_value|
 end
 # => [#<Invocation:0x...
   @method_name=:some_method,
-  @parameters={:some_parameter=>"some argument", :some_other_parameter=>"some other argument"}>,
- #<Invocation:0x...
-  @method_name=:some_method,
-  @parameters={:some_parameter=>"another argument", :some_other_parameter=>"yet another argument"}>]
+  @parameters={:some_parameter=>"some argument", :some_other_parameter=>"some other argument"}>]
 ```
 
 The methods of the recorder may conflict with the methods implemented on the mimicked class. If so, a second set of method names may be used:
