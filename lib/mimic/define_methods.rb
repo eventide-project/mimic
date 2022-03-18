@@ -55,11 +55,23 @@ module Mimic
       when :keyreq
         return "#{name}:"
       when :rest
-        return "*#{name}"
+        if name == :*
+          return "*"
+        else
+          return "*#{name}"
+        end
       when :keyrest
-        return "**#{name}"
+        if name == :**
+          return "**"
+        else
+          return "**#{name}"
+        end
       when :block
-        return "&#{name}"
+        if name == :&
+          return "&"
+        else
+          return "&#{name}"
+        end
       else
         raise Error, "Unknown parameter type (Name: #{name.inspect}, Type: #{type.inspect})"
       end
