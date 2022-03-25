@@ -2,7 +2,7 @@
 Gem::Specification.new do |s|
   s.name = 'evt-mimic'
   s.summary = "Copy a class's instance interface to an anonymous, new object that acts as a substitutable mimic for the class"
-  s.version = '2.3.1.2'
+  s.version = '2.3.1.3'
   s.description = ' '
 
   s.authors = ['The Eventide Project']
