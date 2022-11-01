@@ -3,7 +3,7 @@ module Mimic
     def self.call(subject_class, record: nil, &blk)
       record ||= false
 
-      cls = Class.build(subject_class, &blk)
+      cls = Class.build(subject_class)
 
       subject_methods = Mimic.subject_methods(cls)
 
@@ -18,6 +18,10 @@ module Mimic
       end
 
       DefineMethods.(cls, subject_methods, record: record)
+
+      if not blk.nil?
+        cls.class_exec(&blk)
+      end
 
       cls
     end
