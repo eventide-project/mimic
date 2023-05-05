@@ -1,14 +1,8 @@
-ENV['CONSOLE_DEVICE'] ||= 'stdout'
-ENV['LOG_COLOR'] ||= 'on'
+ENV["CONSOLE_DEVICE"] ||= "stdout"
+ENV["LOG_TAGS"] ||= "_all,_untagged"
+ENV["LOG_LEVEL"] ||= "_min"
 
-if ENV['LOG_LEVEL']
-  ENV['LOGGER'] ||= 'on'
-else
-  ENV['LOG_LEVEL'] ||= 'trace'
-end
-
-ENV['LOGGER'] ||= 'off'
-ENV['LOG_OPTIONAL'] ||= 'on'
+ENV["TEST_BENCH_DETAIL"] ||= ENV["D"]
 
 puts RUBY_DESCRIPTION
 

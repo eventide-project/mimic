@@ -14,13 +14,11 @@ context "Recorder" do
 
           detected_invocations = recorder.invocations
 
-          context "Retrieved" do
-            test "First" do
-              assert(detected_invocations[0] == invocation)
-            end
+          detail "Detected invocations: #{detected_invocations.inspect }}"
 
-            test "Second" do
-              assert(detected_invocations[1] == invocation)
+          context "Retrieved" do
+            test "All invocations" do
+              assert(detected_invocations == [invocation, invocation])
             end
           end
         end
@@ -29,6 +27,8 @@ context "Recorder" do
           recorder = Controls::Recorder.example
 
           detected_invocations = recorder.invocations
+
+          detail "Detected invocations: #{detected_invocations.inspect }}"
 
           test "Not retrieved" do
             assert(detected_invocations.empty?)

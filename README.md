@@ -76,12 +76,33 @@ The invocation can be retrieved based on parameter values.
 ``` ruby
 mimic.some_method('some argument', 'some other argument')
 
-mimic.invocation(:some_method) do |parameter_name, parameter_value|
-  parameter_name == :some_parameter && parameter_value == 'some argument'
-end
+mimic.invocation(:some_method, some_parameter: 'some argument')
 # => #<Invocation:0x...
  @method_name=:some_method,
  @parameters={:some_parameter=>"some argument", :some_other_parameter=>"some other argument"}>
+
+mimic.invocation(:some_method, some_other_parameter: 'some other argument')
+# => #<Invocation:0x...
+ @method_name=:some_method,
+ @parameters={:some_parameter=>"some argument", :some_other_parameter=>"some other argument"}>
+
+mimic.invocation(:some_method, some_parameter: 'some argument', some_other_parameter: 'some other argument')
+# => #<Invocation:0x...
+ @method_name=:some_method,
+ @parameters={:some_parameter=>"some argument", :some_other_parameter=>"some other argument"}>
+```
+
+If more than one invocation is found, an error is raised.
+
+``` ruby
+mimic.some_method('some argument', 'some other argument')
+mimic.some_method('some argument', 'yet another argument')
+
+mimic.invocation(:some_method)
+# => More than one invocation record matches (Method Name: :some_method, Parameters: nil) (Mimic::Recorder::Error)
+
+mimic.invocation(:some_method, some_parameter: 'some argument')
+# => More than one invocation record matches (Method Name: :some_method, Parameters: {:some_parameter => "some argument"}) (Mimic::Recorder::Error)
 ```
 
 The mimic provides predicates for detecting whether an invocation has been made.
@@ -115,9 +136,21 @@ mimic.invocations(:some_method)
   @method_name=:some_method,
   @parameters={:some_parameter=>"another argument", :some_other_parameter=>"yet another argument"}>]
 
-mimic.invocations(:some_method) do |parameter_name, parameter_value|
-  parameter_name == :some_parameter && parameter_value == 'some argument'
-end
+mimic.invocations(:some_random_method)
+# => []
+
+mimic.invocations(:some_method, some_parameter: 'some argument')
+# => [#<Invocation:0x...
+  @method_name=:some_method,
+  @parameters={:some_parameter=>"some argument", :some_other_parameter=>"some other argument"}>]
+
+mimic.invocations(:some_method, some_other_parameter: 'some other argument')
+# => [#<Invocation:0x...
+  @method_name=:some_method,
+  @parameters={:some_parameter=>"some argument", :some_other_parameter=>"some other argument"}>]
+
+
+mimic.invocations(:some_method, some_parameter: 'some argument', some_other_parameter: 'some other argument')
 # => [#<Invocation:0x...
   @method_name=:some_method,
   @parameters={:some_parameter=>"some argument", :some_other_parameter=>"some other argument"}>]
