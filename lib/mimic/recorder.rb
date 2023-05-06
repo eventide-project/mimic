@@ -15,13 +15,16 @@ module Mimic
     alias :record :__record
 
     def __invocation(method_name, **parameters)
+      strict = parameters.delete(:strict)
+      strict = true if strict.nil?
+
       invocations = __invocations(method_name, **parameters)
 
       if invocations.empty?
         return nil
       end
 
-      if invocations.length > 1
+      if strict && invocations.length > 1
         raise Error, "More than one invocation record matches (Method Name: #{method_name.inspect}, Parameters: #{parameters.inspect})"
       end
 
@@ -57,6 +60,7 @@ module Mimic
     alias :invocations :__invocations
 
     def __invoked?(method_name, **parameters)
+      parameters[:strict] = true
       invocation = __invocation(method_name, **parameters)
       !invocation.nil?
     end
