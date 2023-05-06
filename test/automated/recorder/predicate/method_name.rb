@@ -6,14 +6,29 @@ context "Recorder" do
       invocation = Controls::Invocation.example
 
       context "Recorded" do
-        recorder = Controls::Recorder.example
+        context "One" do
+          recorder = Controls::Recorder.example
 
-        recorder.record(invocation)
+          recorder.record(invocation)
 
-        detected = recorder.invoked?(invocation.method_name)
+          detected = recorder.invoked?(invocation.method_name)
 
-        test "Detected" do
-          assert(detected)
+          test "Detected" do
+            assert(detected)
+          end
+        end
+
+        context "Many" do
+          recorder = Controls::Recorder.example
+
+          recorder.record(invocation)
+          recorder.record(invocation)
+
+          detected = recorder.invoked?(invocation.method_name)
+
+          test "Detected" do
+            assert(detected)
+          end
         end
       end
 

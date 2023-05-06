@@ -60,7 +60,7 @@ module Mimic
     alias :invocations :__invocations
 
     def __invoked?(method_name, **parameters)
-      parameters[:strict] = true
+      parameters[:strict] = false
       invocation = __invocation(method_name, **parameters)
       !invocation.nil?
     end
