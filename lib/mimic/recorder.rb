@@ -30,8 +30,6 @@ module Mimic
     alias :invocation :__invocation
 
     def __invocations(method_name=nil, **parameters)
-      parameters = Hash(parameters)
-
       if method_name.nil? && parameters.empty?
         return __records
       end
@@ -58,8 +56,8 @@ module Mimic
     end
     alias :invocations :__invocations
 
-    def __invoked?(method_name, &blk)
-      invocation = __invocation(method_name, &blk)
+    def __invoked?(method_name, **parameters)
+      invocation = __invocation(method_name, **parameters)
       !invocation.nil?
     end
     alias :invoked? :__invoked?

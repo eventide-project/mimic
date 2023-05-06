@@ -121,45 +121,47 @@ context "Recorder" do
           end
         end
 
-        context "None Retrieved by Method Name)" do
-          recorder = Controls::Recorder.example
+        context "None Retrieved" do
+          context "By Method Name" do
+            recorder = Controls::Recorder.example
 
-          recorder.record(invocation)
-          recorder.record(other_invocation)
+            recorder.record(invocation)
+            recorder.record(other_invocation)
 
-          method_name = SecureRandom.hex
-          parameters = { some_parameter: 1 }
+            method_name = SecureRandom.hex
+            parameters = { some_parameter: 1 }
 
-          detected_invocations = recorder.invocations(method_name, **parameters)
+            detected_invocations = recorder.invocations(method_name, **parameters)
 
-          detail "Match Method Name: #{method_name.inspect}"
-          detail "Match Parameters: #{parameters.inspect}"
-          detail "Recorded Invocations: #{recorder.records.inspect}"
-          detail "Detected Invocations: #{detected_invocations.inspect}"
+            detail "Match Method Name: #{method_name.inspect}"
+            detail "Match Parameters: #{parameters.inspect}"
+            detail "Recorded Invocations: #{recorder.records.inspect}"
+            detail "Detected Invocations: #{detected_invocations.inspect}"
 
-          test "Not retrieved" do
-            assert(detected_invocations.empty?)
+            test "Not retrieved" do
+              assert(detected_invocations.empty?)
+            end
           end
-        end
 
-        context "None Retrieved by Parameters" do
-          recorder = Controls::Recorder.example
+          context "By Parameters" do
+            recorder = Controls::Recorder.example
 
-          recorder.record(invocation)
-          recorder.record(other_invocation)
+            recorder.record(invocation)
+            recorder.record(other_invocation)
 
-          method_name = invocation.method_name
-          parameters = { some_parameter: SecureRandom.hex }
+            method_name = invocation.method_name
+            parameters = { some_parameter: SecureRandom.hex }
 
-          detected_invocations = recorder.invocations(invocation.method_name, **parameters)
+            detected_invocations = recorder.invocations(invocation.method_name, **parameters)
 
-          detail "Match Method Name: #{method_name.inspect}"
-          detail "Match Parameters: #{parameters.inspect}"
-          detail "Recorded Invocations: #{recorder.records.inspect}"
-          detail "Detected Invocations: #{detected_invocations.inspect}"
+            detail "Match Method Name: #{method_name.inspect}"
+            detail "Match Parameters: #{parameters.inspect}"
+            detail "Recorded Invocations: #{recorder.records.inspect}"
+            detail "Detected Invocations: #{detected_invocations.inspect}"
 
-          test "Not retrieved" do
-            assert(detected_invocations.empty?)
+            test "Not retrieved" do
+              assert(detected_invocations.empty?)
+            end
           end
         end
       end

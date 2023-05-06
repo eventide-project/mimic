@@ -116,9 +116,13 @@ mimic.invoked?(:some_method)
 mimic.invoked?(:some_random_method)
 # => false
 
-mimic.invoked?(:some_method) do |parameter_name, parameter_value|
-  parameter_name == :some_parameter && parameter_value == 'some argument'
-end
+mimic.invoked?(:some_method, some_parameter: 'some argument')
+# => true
+
+mimic.invoked?(:some_method, some_other_parameter: 'some other argument')
+# => true
+
+mimic.invoked?(:some_method, some_parameter: 'some argument', some_other_parameter: 'some other argument')
 # => true
 ```
 
@@ -148,7 +152,6 @@ mimic.invocations(:some_method, some_other_parameter: 'some other argument')
 # => [#<Invocation:0x...
   @method_name=:some_method,
   @parameters={:some_parameter=>"some argument", :some_other_parameter=>"some other argument"}>]
-
 
 mimic.invocations(:some_method, some_parameter: 'some argument', some_other_parameter: 'some other argument')
 # => [#<Invocation:0x...
