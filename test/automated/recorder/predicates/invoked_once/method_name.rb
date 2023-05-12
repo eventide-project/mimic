@@ -1,4 +1,4 @@
-require_relative '../../automated_init'
+require_relative '../../../automated_init'
 
 context "Recorder" do
   context "Predicate" do
@@ -11,7 +11,7 @@ context "Recorder" do
 
           recorder.record(invocation)
 
-          detected = recorder.invoked?(invocation.method_name)
+          detected = recorder.invoked_once?(invocation.method_name)
 
           test "Detected" do
             assert(detected)
@@ -24,10 +24,10 @@ context "Recorder" do
           recorder.record(invocation)
           recorder.record(invocation)
 
-          detected = recorder.invoked?(invocation.method_name)
-
-          test "Detected" do
-            assert(detected)
+          test "Is an error" do
+            assert_raises(Recorder::Error) do
+              recorder.invoked_once?(invocation.method_name)
+            end
           end
         end
       end

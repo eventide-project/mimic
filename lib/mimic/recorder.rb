@@ -28,9 +28,15 @@ module Mimic
         raise Error, "More than one invocation record matches (Method Name: #{method_name.inspect}, Parameters: #{parameters.inspect})"
       end
 
-      return invocations.first
+      invocations.first
     end
     alias :invocation :__invocation
+
+    def __one_invocation(method_name, **parameters)
+      parameters[:strict] = true
+      __invocation(method_name, **parameters)
+    end
+    alias :one_invocation :__one_invocation
 
     def __invocations(method_name=nil, **parameters)
       if method_name.nil? && parameters.empty?
@@ -65,5 +71,11 @@ module Mimic
       !invocation.nil?
     end
     alias :invoked? :__invoked?
+
+    def __invoked_once?(method_name, **parameters)
+      invocation = __one_invocation(method_name, **parameters)
+      !invocation.nil?
+    end
+    alias :invoked_once? :__invoked_once?
   end
 end
