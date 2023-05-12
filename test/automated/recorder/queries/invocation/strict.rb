@@ -1,7 +1,7 @@
 require_relative '../../../automated_init'
 
 context "Recorder" do
-  context "Query" do
+  context "Queries" do
     context "Invocation" do
       context "Strict" do
         context "Not Strict" do

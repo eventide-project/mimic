@@ -1,9 +1,9 @@
 require_relative '../../../automated_init'
 
 context "Recorder" do
-  context "Query" do
-    context "One Invocation" do
-      context "Method Name" do
+  context "Queries" do
+    context "By Method Name" do
+      context "One Invocation" do
         invocation = Controls::Invocation.example
 
         context "Recorded" do
