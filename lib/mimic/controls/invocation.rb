@@ -1,11 +1,9 @@
 module Mimic
   module Controls
     module Invocation
-      def self.example(some_parameter: nil)
-        some_parameter ||= 1
-
+      def self.example
         parameters = {}
-        parameters[:some_parameter] = some_parameter
+        parameters[:some_parameter] = 1
         parameters[:some_other_parameter] = 11
 
         invocation = ::Invocation.new(method_name, parameters)
