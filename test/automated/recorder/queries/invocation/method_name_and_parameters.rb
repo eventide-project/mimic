@@ -6,72 +6,100 @@ context "Recorder" do
       context "By Method Name and Parameters" do
         invocation = Controls::Invocation.example
 
-        context "Retrieve One" do
-          context "One Parameter Match" do
-            recorder = Controls::Recorder.example
+        context "Recorded One" do
+          context "Matched Parameters" do
+            context "One Parameter Match" do
+              recorder = Controls::Recorder.example
 
-            recorder.record(invocation)
+              recorder.record(invocation)
 
-            method_name = invocation.method_name
-            parameters = { some_parameter: 1 }
+              method_name = invocation.method_name
+              parameters = { some_parameter: 1 }
 
-            detected_invocation = recorder.invocation(method_name, **parameters)
+              retrieved_invocation = recorder.invocation(method_name, **parameters)
 
-            detail "Match Method Name: #{method_name.inspect}"
-            detail "Match Parameters: #{parameters.inspect}"
-            detail "Recorded Invocations: #{recorder.records.inspect}"
-            detail "Detected Invocation: #{detected_invocation.inspect}"
+              detail "Match Method Name: #{method_name.inspect}"
+              detail "Match Parameters: #{parameters.inspect}"
+              detail "Recorded Invocations: #{recorder.records.inspect}"
+              detail "Retrieved Invocation: #{retrieved_invocation.inspect}"
 
-            context "Retrieved" do
-              assert(detected_invocation == invocation)
+              context "Retrieved" do
+                assert(retrieved_invocation == invocation)
+              end
             end
-          end
 
-          context "Many Parameter Match" do
-            recorder = Controls::Recorder.example
+            context "Multiple Parameters Match" do
+              recorder = Controls::Recorder.example
 
-            recorder.record(invocation)
+              recorder.record(invocation)
 
-            method_name = invocation.method_name
-            parameters = { some_parameter: 1, some_other_parameter: 11 }
+              method_name = invocation.method_name
+              parameters = { some_parameter: 1, some_other_parameter: 11 }
 
-            detected_invocation = recorder.invocation(method_name, **parameters)
+              retrieved_invocation = recorder.invocation(method_name, **parameters)
 
-            detail "Match Method Name: #{method_name.inspect}"
-            detail "Match Parameters: #{parameters.inspect}"
-            detail "Recorded Invocations: #{recorder.records.inspect}"
-            detail "Detected Invocation: #{detected_invocation.inspect}"
+              detail "Match Method Name: #{method_name.inspect}"
+              detail "Match Parameters: #{parameters.inspect}"
+              detail "Recorded Invocations: #{recorder.records.inspect}"
+              detail "Retrieved Invocation: #{retrieved_invocation.inspect}"
 
-            context "Detected" do
-              test do
-                assert(detected_invocation == invocation)
+              test "Retrieved" do
+                assert(retrieved_invocation == invocation)
               end
             end
           end
         end
 
-        context "None Retrieved" do
-          context "By Method Name" do
-            recorder = Controls::Recorder.example
+        context "Recorded Multiple" do
+          other_invocation = Controls::Invocation.example
 
-            recorder.record(invocation)
+          context "Matched Parameters" do
+            context "One Parameter Match" do
+              recorder = Controls::Recorder.example
 
-            method_name = SecureRandom.hex
-            parameters = { some_parameter: 1 }
+              recorder.record(invocation)
+              recorder.record(other_invocation)
 
-            detected_invocation = recorder.invocation(method_name, **parameters)
+              method_name = invocation.method_name
+              parameters = { some_parameter: 1 }
 
-            detail "Match Method Name: #{method_name.inspect}"
-            detail "Match Parameters: #{parameters.inspect}"
-            detail "Recorded Invocations: #{recorder.records.inspect}"
-            detail "Detected Invocation: #{detected_invocation.inspect}"
+              retrieved_invocation = recorder.invocation(method_name, **parameters)
 
-            test "Not retrieved" do
-              assert(detected_invocation.nil?)
+              detail "Match Method Name: #{method_name.inspect}"
+              detail "Match Parameters: #{parameters.inspect}"
+              detail "Recorded Invocations: #{recorder.records.inspect}"
+              detail "Retrieved Invocation: #{retrieved_invocation.inspect}"
+
+              context "Retrieved First" do
+                assert(retrieved_invocation == invocation)
+              end
+            end
+
+            context "Many Parameters Match" do
+              recorder = Controls::Recorder.example
+
+              recorder.record(invocation)
+              recorder.record(other_invocation)
+
+              method_name = invocation.method_name
+              parameters = { some_parameter: 1, some_other_parameter: 11 }
+
+              retrieved_invocation = recorder.invocation(method_name, **parameters)
+
+              detail "Match Method Name: #{method_name.inspect}"
+              detail "Match Parameters: #{parameters.inspect}"
+              detail "Recorded Invocations: #{recorder.records.inspect}"
+              detail "Retrieved Invocation: #{retrieved_invocation.inspect}"
+
+              test "Retrieved First" do
+                assert(retrieved_invocation == invocation)
+              end
             end
           end
+        end
 
-          context "By Parameters" do
+        context "Recorded" do
+          context "No Parameters Match" do
             recorder = Controls::Recorder.example
 
             recorder.record(invocation)
@@ -79,16 +107,34 @@ context "Recorder" do
             method_name = invocation.method_name
             parameters = { some_parameter: SecureRandom.hex }
 
-            detected_invocation = recorder.invocation(method_name, **parameters)
+            retrieved_invocation = recorder.invocation(method_name, **parameters)
 
             detail "Match Method Name: #{method_name.inspect}"
             detail "Match Parameters: #{parameters.inspect}"
             detail "Recorded Invocations: #{recorder.records.inspect}"
-            detail "Detected Invocation: #{detected_invocation.inspect}"
+            detail "Retrieved Invocation: #{retrieved_invocation.inspect}"
 
-            test "Not retrieved" do
-              assert(detected_invocation.nil?)
+            context "Not Retrieved" do
+              assert(retrieved_invocation.nil?)
             end
+          end
+        end
+
+        context "Not Recorded" do
+          recorder = Controls::Recorder.example
+
+          method_name = invocation.method_name
+          parameters = { some_parameter: 1 }
+
+          retrieved_invocation = recorder.invocation(method_name, **parameters)
+
+          detail "Match Method Name: #{method_name.inspect}"
+          detail "Match Parameters: #{parameters.inspect}"
+          detail "Recorded Invocations: #{recorder.records.inspect}"
+          detail "Retrieved Invocation: #{retrieved_invocation.inspect}"
+
+          context "Not Retrieved" do
+            assert(retrieved_invocation.nil?)
           end
         end
       end

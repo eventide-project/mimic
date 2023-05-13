@@ -16,7 +16,7 @@ module Mimic
 
     def __invocation(method_name, **parameters)
       strict = parameters.delete(:strict)
-      strict = true if strict.nil?
+      strict ||= false
 
       invocations = __invocations(method_name, **parameters)
 
@@ -65,7 +65,11 @@ module Mimic
     end
     alias :invocations :__invocations
 
-    def __invoked?(method_name, **parameters)
+    def __invoked?(method_name=nil, **parameters)
+      if method_name.nil? && parameters.empty?
+        return !__records.empty?
+      end
+
       parameters[:strict] = false
       invocation = __invocation(method_name, **parameters)
       !invocation.nil?

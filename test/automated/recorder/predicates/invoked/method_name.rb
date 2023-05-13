@@ -7,7 +7,7 @@ context "Recorder" do
         invocation = Controls::Invocation.example
 
         context "Recorded" do
-          context "One" do
+          context "Matched Method Name" do
             recorder = Controls::Recorder.example
 
             recorder.record(invocation)
@@ -19,16 +19,15 @@ context "Recorder" do
             end
           end
 
-          context "Many" do
+          context "Mismatched Method Name" do
             recorder = Controls::Recorder.example
 
             recorder.record(invocation)
-            recorder.record(invocation)
 
-            detected = recorder.invoked?(invocation.method_name)
+            detected = recorder.invoked?(SecureRandom.hex)
 
-            test "Detected" do
-              assert(detected)
+            test "Not detected" do
+              refute(detected)
             end
           end
         end
@@ -36,7 +35,7 @@ context "Recorder" do
         context "Not Recorded" do
           recorder = Controls::Recorder.example
 
-          detected = recorder.invoked?(SecureRandom.hex)
+          detected = recorder.invoked?(invocation.method_name)
 
           test "Not detected" do
             refute(detected)
