@@ -27,7 +27,7 @@ context "Recorder" do
               end
             end
 
-            context "Many Parameters Match" do
+            context "Multiple Parameters Match" do
               recorder = Controls::Recorder.example
 
               recorder.record(invocation)

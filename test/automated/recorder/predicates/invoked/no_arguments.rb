@@ -1,7 +1,5 @@
 require_relative '../../../automated_init'
 
-require_relative '../../../automated_init'
-
 context "Recorder" do
   context "Predicates" do
     context "Invoked" do
