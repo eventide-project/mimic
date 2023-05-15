@@ -70,15 +70,18 @@ module Mimic
         return !__records.empty?
       end
 
-      parameters[:strict] = false
+      if not parameters.key?(:strict)
+        parameters[:strict] = false
+      end
+
       invocation = __invocation(method_name, **parameters)
       !invocation.nil?
     end
     alias :invoked? :__invoked?
 
     def __invoked_once?(method_name, **parameters)
-      invocation = __one_invocation(method_name, **parameters)
-      !invocation.nil?
+      parameters[:strict] = true
+      __invoked?(method_name, **parameters)
     end
     alias :invoked_once? :__invoked_once?
   end
