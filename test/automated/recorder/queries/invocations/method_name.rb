@@ -16,6 +16,8 @@ context "Recorder" do
             retrieved_invocations = recorder.invocations(invocation.method_name)
 
             context "Retrieved" do
+              assert(retrieved_invocations.length == 2)
+
               test "First" do
                 assert(retrieved_invocations[0] == invocation)
               end

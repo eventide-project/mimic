@@ -17,8 +17,6 @@ context "Recorder" do
 
           detected = mimic.some_predicate?
 
-          detail "Recorded Invocations: #{mimic.records.inspect}"
-
           test "Detected" do
             assert(detected)
           end
@@ -30,8 +28,6 @@ context "Recorder" do
           detected = mimic.some_predicate?
 
           assert(mimic.invocations(invocation.method_name).length == 0)
-
-          detail "Recorded Invocations: #{mimic.records.inspect}"
 
           test "Not detected" do
             refute(detected)
