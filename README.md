@@ -242,6 +242,57 @@ mimic.class.a_class_method
 # => "In a_class_method"
 ```
 
+A mimicked object can be further specialized with a domain-specific predicate API by using the `Mimic::Recorder::Predicate` module and its `predicate` macro.
+
+``` ruby
+Mimic.(Mimic.subject_class, record: true) do
+  include Mimic::Recorder::Predicate
+
+  predicate :some_predicate?, method_name: :some_method
+end
+```
+
+The predicate macro generates a specialized predicate method that detects invocations of the method named by the `method_name` argument. In the above case, the `some_method` method.
+
+``` ruby
+mimic.some_method('some argument', 'some other argument')
+
+mimic.some_predicate?
+# => true
+
+mimic.some_predicate?(some_parameter: 'some argument', some_other_parameter: 'some other argument')
+# => true
+```
+
+It's the equivalent of using the strict `invoked_once?` predicate. If the invocation was recorded more than once, an error is raised
+
+``` ruby
+mimic.some_method('some argument', 'some other argument')
+mimic.some_method('some argument', 'yet another argument')
+
+mimic.some_predicate?(some_parameter: 'some argument', some_other_parameter: 'some other argument')
+# => More than one invocation record matches (Method Name: :some_method, Parameters: {:some_parameter => "some argument", :some_other_parameter => "some other argument"}) (Mimic::Recorder::Error)
+```
+
+The domain-specific predicate can also operate in a non-strict mode equivalent to the `invoked?` predicate. By specifying `strict: false` in the predicate's declaration, no error will be raised if more that one invocation record is found.
+
+``` ruby
+Mimic.(Mimic.subject_class, record: true) do
+  include Mimic::Recorder::Predicate
+
+  predicate :some_predicate?, method_name: :some_method, strict: false
+end
+
+mimic.some_method('some argument', 'some other argument')
+mimic.some_method('some argument', 'yet another argument')
+
+mimic.some_predicate?
+# => true
+
+mimic.some_predicate?(some_parameter: 'some argument', some_other_parameter: 'some other argument')
+# => true
+```
+
 ## Preserved Methods
 
 Mimicked objects' instance methods are replaced with voided methods _except_ for instance methods defined on Ruby's `Object` class and the `method_missing` method.
