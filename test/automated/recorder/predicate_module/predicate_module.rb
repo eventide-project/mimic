@@ -17,9 +17,6 @@ context "Recorder" do
 
               detected = mimic.some_predicate?(**parameters)
 
-              detail "Match Parameters: #{parameters.inspect}"
-              detail "Recorded Invocations: #{mimic.records.inspect}"
-
               test "Detected" do
                 assert(detected)
               end
@@ -33,9 +30,6 @@ context "Recorder" do
               parameters = { some_parameter: 1, some_other_parameter: 11 }
 
               detected = mimic.some_predicate?(**parameters)
-
-              detail "Match Parameters: #{parameters.inspect}"
-              detail "Recorded Invocations: #{mimic.records.inspect}"
 
               test "Detected" do
                 assert(detected)
@@ -51,9 +45,6 @@ context "Recorder" do
 
               detected = mimic.some_predicate?(**parameters)
 
-              detail "Match Parameters: #{parameters.inspect}"
-              detail "Recorded Invocations: #{mimic.records.inspect}"
-
               test "Not Detected" do
                 refute(detected)
               end
@@ -68,9 +59,6 @@ context "Recorder" do
         parameters = { some_parameter: 1 }
 
         detected = mimic.some_predicate?(**parameters)
-
-        detail "Match Parameters: #{parameters.inspect}"
-        detail "Recorded Invocations: #{mimic.records.inspect}"
 
         test "Not Detected" do
           refute(detected)

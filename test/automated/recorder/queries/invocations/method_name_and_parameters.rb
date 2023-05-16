@@ -20,12 +20,9 @@ context "Recorder" do
 
               retrieved_invocations = recorder.invocations(method_name, **parameters)
 
-              detail "Match Method Name: #{method_name.inspect}"
-              detail "Match Parameters: #{parameters.inspect}"
-              detail "Recorded Invocations: #{recorder.records.inspect}"
-              detail "Retrieved Invocations: #{retrieved_invocations.inspect}"
-
               context "Retrieved" do
+                assert(retrieved_invocations.length == 2)
+
                 test "First" do
                   assert(retrieved_invocations[0] == invocation)
                 end
@@ -47,12 +44,9 @@ context "Recorder" do
 
               retrieved_invocations = recorder.invocations(method_name, **parameters)
 
-              detail "Match Method Name: #{method_name.inspect}"
-              detail "Match Parameters: #{parameters.inspect}"
-              detail "Recorded Invocations: #{recorder.records.inspect}"
-              detail "Retrieved Invocations: #{retrieved_invocations.inspect}"
-
               context "Retrieved" do
+                assert(retrieved_invocations.length == 2)
+
                 test "First" do
                   assert(retrieved_invocations[0] == invocation)
                 end
@@ -75,11 +69,6 @@ context "Recorder" do
 
             retrieved_invocations = recorder.invocations(method_name, **parameters)
 
-            detail "Match Method Name: #{method_name.inspect}"
-            detail "Match Parameters: #{parameters.inspect}"
-            detail "Recorded Invocations: #{recorder.records.inspect}"
-            detail "Retrieved Invocations: #{retrieved_invocations.inspect}"
-
             test "Not Retrieved" do
               assert(retrieved_invocations.empty?)
             end
@@ -93,11 +82,6 @@ context "Recorder" do
           parameters = { some_parameter: 1 }
 
           retrieved_invocations = recorder.invocations(method_name, **parameters)
-
-          detail "Match Method Name: #{method_name.inspect}"
-          detail "Match Parameters: #{parameters.inspect}"
-          detail "Recorded Invocations: #{recorder.records.inspect}"
-          detail "Retrieved Invocations: #{retrieved_invocations.inspect}"
 
           test "Not retrieved" do
             assert(retrieved_invocations.empty?)

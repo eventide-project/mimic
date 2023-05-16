@@ -18,11 +18,6 @@ context "Recorder" do
 
               retrieved_invocation = recorder.invocation(method_name, **parameters)
 
-              detail "Match Method Name: #{method_name.inspect}"
-              detail "Match Parameters: #{parameters.inspect}"
-              detail "Recorded Invocations: #{recorder.records.inspect}"
-              detail "Retrieved Invocation: #{retrieved_invocation.inspect}"
-
               context "Retrieved" do
                 assert(retrieved_invocation == invocation)
               end
@@ -37,11 +32,6 @@ context "Recorder" do
               parameters = { some_parameter: 1, some_other_parameter: 11 }
 
               retrieved_invocation = recorder.invocation(method_name, **parameters)
-
-              detail "Match Method Name: #{method_name.inspect}"
-              detail "Match Parameters: #{parameters.inspect}"
-              detail "Recorded Invocations: #{recorder.records.inspect}"
-              detail "Retrieved Invocation: #{retrieved_invocation.inspect}"
 
               test "Retrieved" do
                 assert(retrieved_invocation == invocation)
@@ -65,11 +55,6 @@ context "Recorder" do
 
               retrieved_invocation = recorder.invocation(method_name, **parameters)
 
-              detail "Match Method Name: #{method_name.inspect}"
-              detail "Match Parameters: #{parameters.inspect}"
-              detail "Recorded Invocations: #{recorder.records.inspect}"
-              detail "Retrieved Invocation: #{retrieved_invocation.inspect}"
-
               context "Retrieved First" do
                 assert(retrieved_invocation == invocation)
               end
@@ -85,11 +70,6 @@ context "Recorder" do
               parameters = { some_parameter: 1, some_other_parameter: 11 }
 
               retrieved_invocation = recorder.invocation(method_name, **parameters)
-
-              detail "Match Method Name: #{method_name.inspect}"
-              detail "Match Parameters: #{parameters.inspect}"
-              detail "Recorded Invocations: #{recorder.records.inspect}"
-              detail "Retrieved Invocation: #{retrieved_invocation.inspect}"
 
               test "Retrieved First" do
                 assert(retrieved_invocation == invocation)
@@ -109,11 +89,6 @@ context "Recorder" do
 
             retrieved_invocation = recorder.invocation(method_name, **parameters)
 
-            detail "Match Method Name: #{method_name.inspect}"
-            detail "Match Parameters: #{parameters.inspect}"
-            detail "Recorded Invocations: #{recorder.records.inspect}"
-            detail "Retrieved Invocation: #{retrieved_invocation.inspect}"
-
             context "Not Retrieved" do
               assert(retrieved_invocation.nil?)
             end
@@ -127,11 +102,6 @@ context "Recorder" do
           parameters = { some_parameter: 1 }
 
           retrieved_invocation = recorder.invocation(method_name, **parameters)
-
-          detail "Match Method Name: #{method_name.inspect}"
-          detail "Match Parameters: #{parameters.inspect}"
-          detail "Recorded Invocations: #{recorder.records.inspect}"
-          detail "Retrieved Invocation: #{retrieved_invocation.inspect}"
 
           context "Not Retrieved" do
             assert(retrieved_invocation.nil?)
