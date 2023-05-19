@@ -1,32 +1,31 @@
 require_relative '../../../automated_init'
 
 context "Recorder" do
-  context "Find" do
-    context "One Invocation" do
-      context "Method Name" do
+  context "Query" do
+    context "Invocations" do
+      context "No Arguments" do
         invocation = Controls::Invocation.example
 
         context "Recorded" do
           recorder = Controls::Recorder.example
 
           recorder.record(invocation)
+          recorder.record(invocation)
 
-          detected_invocation = recorder.invocation(invocation.method_name)
+          retrieved_invocations = recorder.invocations
 
-          context "Retrieved" do
-            assert(detected_invocation == invocation)
+          test "All retrieved" do
+            assert(retrieved_invocations == [invocation, invocation])
           end
         end
 
         context "Not Recorded" do
           recorder = Controls::Recorder.example
 
-          recorder.record(invocation)
-
-          detected_invocation = recorder.invocation(SecureRandom.hex)
+          retrieved_invocations = recorder.invocations
 
           test "Not retrieved" do
-            assert(detected_invocation.nil?)
+            assert(retrieved_invocations.empty?)
           end
         end
       end

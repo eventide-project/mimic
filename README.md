@@ -76,32 +76,49 @@ The invocation can be retrieved based on parameter values.
 ``` ruby
 mimic.some_method('some argument', 'some other argument')
 
-mimic.invocation(:some_method) do |parameter_name, parameter_value|
-  parameter_name == :some_parameter && parameter_value == 'some argument'
-end
+mimic.invocation(:some_method, some_parameter: 'some argument')
+# => #<Invocation:0x...
+ @method_name=:some_method,
+ @parameters={:some_parameter=>"some argument", :some_other_parameter=>"some other argument"}>
+
+mimic.invocation(:some_method, some_other_parameter: 'some other argument')
+# => #<Invocation:0x...
+ @method_name=:some_method,
+ @parameters={:some_parameter=>"some argument", :some_other_parameter=>"some other argument"}>
+
+mimic.invocation(:some_method, some_parameter: 'some argument', some_other_parameter: 'some other argument')
 # => #<Invocation:0x...
  @method_name=:some_method,
  @parameters={:some_parameter=>"some argument", :some_other_parameter=>"some other argument"}>
 ```
 
-The mimic provides predicates for detecting whether an invocation has been made.
+If more than one invocation is found, only the first invocation will be returned.
+
+If a method should have only been invoked once, the `one_invocation` method will raise an error rather than return the first invocation.
+
+``` ruby
+mimic.some_method('some argument', 'some other argument')
+mimic.some_method('some argument', 'yet another argument')
+
+mimic.one_invocation(:some_method)
+# => More than one invocation record matches (Method Name: :some_method, Parameters: nil) (Mimic::Recorder::Error)
+
+mimic.one_invocation(:some_method, some_parameter: 'some argument')
+# => More than one invocation record matches (Method Name: :some_method, Parameters: {:some_parameter => "some argument"}) (Mimic::Recorder::Error)
+```
+
+If only one invocation of the method was recorded, then that invocation will be returned, just as it does with the `invocation` method.
 
 ``` ruby
 mimic.some_method('some argument', 'some other argument')
 
-mimic.invoked?(:some_method)
-# => true
-
-mimic.invoked?(:some_random_method)
-# => false
-
-mimic.invoked?(:some_method) do |parameter_name, parameter_value|
-  parameter_name == :some_parameter && parameter_value == 'some argument'
-end
-# => true
+mimic.invocation(:some_method, some_parameter: 'some argument')
+# => #<Invocation:0x...
+ @method_name=:some_method,
+ @parameters={:some_parameter=>"some argument", :some_other_parameter=>"some other argument"}>
 ```
 
-If a method is invoked more than once, the multiple invocation records can be retrieved.
+If a method is invoked more than once, multiple invocation records can be retrieved.
 
 ``` ruby
 mimic.some_method('some argument', 'some other argument')
@@ -115,19 +132,74 @@ mimic.invocations(:some_method)
   @method_name=:some_method,
   @parameters={:some_parameter=>"another argument", :some_other_parameter=>"yet another argument"}>]
 
-mimic.invocations(:some_method) do |parameter_name, parameter_value|
-  parameter_name == :some_parameter && parameter_value == 'some argument'
-end
+mimic.invocations(:some_random_method)
+# => []
+
+mimic.invocations(:some_method, some_parameter: 'some argument')
+# => [#<Invocation:0x...
+  @method_name=:some_method,
+  @parameters={:some_parameter=>"some argument", :some_other_parameter=>"some other argument"}>]
+
+mimic.invocations(:some_method, some_other_parameter: 'some other argument')
+# => [#<Invocation:0x...
+  @method_name=:some_method,
+  @parameters={:some_parameter=>"some argument", :some_other_parameter=>"some other argument"}>]
+
+mimic.invocations(:some_method, some_parameter: 'some argument', some_other_parameter: 'some other argument')
 # => [#<Invocation:0x...
   @method_name=:some_method,
   @parameters={:some_parameter=>"some argument", :some_other_parameter=>"some other argument"}>]
 ```
 
-The methods of the recorder may conflict with the methods implemented on the mimicked class. If so, a second set of method names may be used:
+The mimic provides predicates for detecting whether an invocation has been made.
+
+``` ruby
+mimic.some_method('some argument', 'some other argument')
+
+mimic.invoked?(:some_method)
+# => true
+
+mimic.invoked?(:some_random_method)
+# => false
+
+mimic.invoked?(:some_method, some_parameter: 'some argument')
+# => true
+
+mimic.invoked?(:some_method, some_other_parameter: 'some other argument')
+# => true
+
+mimic.invoked?(:some_method, some_parameter: 'some argument', some_other_parameter: 'some other argument')
+# => true
+```
+
+If a method should have only been invoked once, the `invoked_once?` predicate will raise an error if more than one matching invocation is detected.
+
+``` ruby
+mimic.some_method('some argument', 'some other argument')
+mimic.some_method('some argument', 'yet another argument')
+
+mimic.invoked_once?(:some_method)
+# => More than one invocation record matches (Method Name: :some_method, Parameters: nil) (Mimic::Recorder::Error)
+
+mimic.invoked_once?(:some_method, some_parameter: 'some argument')
+# => More than one invocation record matches (Method Name: :some_method, Parameters: {:some_parameter => "some argument"}) (Mimic::Recorder::Error)
+```
+
+If only one invocation of the method was recorded, then the predicate will respond affirmatively.
+
+``` ruby
+mimic.some_method('some argument', 'some other argument')
+
+mimic.invoked_once?(:some_method, some_parameter: 'some argument')
+# => true
+```
+
+The methods of the recorder may conflict with the methods implemented on the mimicked class. If so, a secondary set of method names may be used to access the mimic's diagnostic functions:
 
 - __invocation
 - __invocations
 - __invoked?
+- __invoked_once?
 
 ## Mimicked Methods and the Void Return Type
 
@@ -168,6 +240,57 @@ mimic.an_instance_method
 
 mimic.class.a_class_method
 # => "In a_class_method"
+```
+
+A mimicked object can be further specialized with a domain-specific predicate API by using the `Mimic::Recorder::Predicate` module and its `predicate` macro.
+
+``` ruby
+Mimic.(Mimic.subject_class, record: true) do
+  include Mimic::Recorder::Predicate
+
+  predicate :some_predicate?, method_name: :some_method
+end
+```
+
+The predicate macro generates a specialized predicate method that detects invocations of the method named by the `method_name` argument. In the above case, the `some_method` method.
+
+``` ruby
+mimic.some_method('some argument', 'some other argument')
+
+mimic.some_predicate?
+# => true
+
+mimic.some_predicate?(some_parameter: 'some argument', some_other_parameter: 'some other argument')
+# => true
+```
+
+It's the equivalent of using the strict `invoked_once?` predicate. If the invocation was recorded more than once, an error is raised
+
+``` ruby
+mimic.some_method('some argument', 'some other argument')
+mimic.some_method('some argument', 'yet another argument')
+
+mimic.some_predicate?(some_parameter: 'some argument', some_other_parameter: 'some other argument')
+# => More than one invocation record matches (Method Name: :some_method, Parameters: {:some_parameter => "some argument", :some_other_parameter => "some other argument"}) (Mimic::Recorder::Error)
+```
+
+The domain-specific predicate can also operate in a non-strict mode equivalent to the `invoked?` predicate. By specifying `strict: false` in the predicate's declaration, no error will be raised if more that one invocation record is found.
+
+``` ruby
+Mimic.(Mimic.subject_class, record: true) do
+  include Mimic::Recorder::Predicate
+
+  predicate :some_predicate?, method_name: :some_method, strict: false
+end
+
+mimic.some_method('some argument', 'some other argument')
+mimic.some_method('some argument', 'yet another argument')
+
+mimic.some_predicate?
+# => true
+
+mimic.some_predicate?(some_parameter: 'some argument', some_other_parameter: 'some other argument')
+# => true
 ```
 
 ## Preserved Methods
@@ -220,10 +343,6 @@ obj.some_method_that_doesnt_exist
 obj.dependency.class
 # => Mimic::Class::SomeDependencyClass_0..
 ```
-
-## Acknowledgment
-
-The Eventide Project made use of the [Naught](https://github.com/avdi/naught) library for a number of years before implementing Mimic. Its implementation has been both instructive and inspirational for Mimic. The Naught library is a far more thorough implementation of the breadth of null object patterns that address scenarios above and beyond the Mimic library's purpose.
 
 ## License
 

@@ -1,5 +1,7 @@
 module Mimic
   module Recorder
+    Error = ::Class.new(RuntimeError)
+
     attr_writer :__records
     def __records
       @__records ||= []
@@ -12,25 +14,38 @@ module Mimic
     end
     alias :record :__record
 
-    def __invocation(method_name, &blk)
-      invocations = __invocations(method_name, &blk)
+    def __invocation(method_name, **parameters)
+      strict = parameters.delete(:strict)
+      strict ||= false
+
+      invocations = __invocations(method_name, **parameters)
 
       if invocations.empty?
         return nil
       end
 
-      return invocations.first
+      if strict && invocations.length > 1
+        raise Error, "More than one invocation record matches (Method Name: #{method_name.inspect}, Parameters: #{parameters.inspect})"
+      end
+
+      invocations.first
     end
     alias :invocation :__invocation
 
-    def __invocations(method_name=nil, &blk)
-      if method_name.nil? && blk.nil?
+    def __one_invocation(method_name, **parameters)
+      parameters[:strict] = true
+      __invocation(method_name, **parameters)
+    end
+    alias :one_invocation :__one_invocation
+
+    def __invocations(method_name=nil, **parameters)
+      if method_name.nil? && parameters.empty?
         return __records
       end
 
       invocations = __records.select { |invocation| invocation.method_name == method_name }
 
-      if blk.nil?
+      if parameters.nil?
         return invocations
       end
 
@@ -38,16 +53,36 @@ module Mimic
         return []
       end
 
-      invocations.select do |invocation|
-        invocation.parameters.find { |k, v| blk.(k, v)}
+      invocations = invocations.select do |invocation|
+        parameters.all? do |match_parameter_name, match_parameter_value|
+          invocation_value = invocation.parameters[match_parameter_name]
+
+          invocation_value == match_parameter_value
+        end
       end
+
+      invocations
     end
     alias :invocations :__invocations
 
-    def __invoked?(method_name, &blk)
-      invocation = __invocation(method_name, &blk)
+    def __invoked?(method_name=nil, **parameters)
+      if method_name.nil? && parameters.empty?
+        return !__records.empty?
+      end
+
+      if not parameters.key?(:strict)
+        parameters[:strict] = false
+      end
+
+      invocation = __invocation(method_name, **parameters)
       !invocation.nil?
     end
     alias :invoked? :__invoked?
+
+    def __invoked_once?(method_name, **parameters)
+      parameters[:strict] = true
+      __invoked?(method_name, **parameters)
+    end
+    alias :invoked_once? :__invoked_once?
   end
 end
