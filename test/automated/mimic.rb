@@ -8,4 +8,8 @@ context "Mimic" do
   test "Constructs the mimicked class" do
     assert(mimic.is_a?(subject_class))
   end
+
+  test "Is not a recorder" do
+    refute(mimic.is_a?(Mimic::Recorder))
+  end
 end
