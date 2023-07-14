@@ -3,7 +3,7 @@ require_relative '../../automated_init'
 context "Define Methods" do
   context "Match Method Signature" do
     context "Multiple Assignment Named Parameter" do
-      subject_class = Controls::Subject::MultipleAssignmentNamedParameter::Example
+      subject_class = Controls::Subject::MultipleAssignmentKeywordParameter::Example
       subject = subject_class.new
 
       mimic = Mimic.(subject_class)

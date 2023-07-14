@@ -1,7 +1,7 @@
 module Mimic
   module Controls
     module Subject
-      module MultipleAssignmentNamedParameter
+      module MultipleAssignmentKeywordParameter
         class Example
           def some_method(**parameters)
           end
