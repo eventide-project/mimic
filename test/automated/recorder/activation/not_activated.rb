@@ -8,7 +8,7 @@ context "Recorder" do
       mimic = Mimic.(subject_class, record: false)
 
       test "Mimic is not a recorder" do
-        refute(mimic.is_a? Recorder)
+        refute(mimic.is_a?(RecordInvocation))
       end
     end
   end

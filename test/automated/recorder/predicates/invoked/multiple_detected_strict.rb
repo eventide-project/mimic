@@ -14,7 +14,7 @@ context "Recorder" do
             recorder.record(invocation)
 
             test "Is an error" do
-              assert_raises(Recorder::Error) do
+              assert_raises(RecordInvocation::Error) do
                 recorder.invoked?(invocation.method_name, strict: true)
               end
             end
@@ -27,7 +27,7 @@ context "Recorder" do
             recorder.record(invocation)
 
             test "Is an error" do
-              assert_raises(Recorder::Error) do
+              assert_raises(RecordInvocation::Error) do
                 recorder.invoked?(invocation.method_name, some_parameter: 1, strict: true)
               end
             end

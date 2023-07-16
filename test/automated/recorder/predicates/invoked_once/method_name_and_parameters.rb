@@ -62,7 +62,7 @@ context "Recorder" do
               detail "Recorded Invocations: #{recorder.records.inspect}"
 
               test "Is an Error" do
-                assert_raises(Recorder::Error) do
+                assert_raises(RecordInvocation::Error) do
                   recorder.invoked_once?(method_name, **parameters)
                 end
               end

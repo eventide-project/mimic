@@ -67,7 +67,7 @@ context "Recorder" do
               parameters = { some_parameter: 1 }
 
               test "Is an error" do
-                assert_raises(Recorder::Error) do
+                assert_raises(RecordInvocation::Error) do
                   recorder.one_invocation(invocation.method_name, **parameters)
                 end
               end
@@ -83,7 +83,7 @@ context "Recorder" do
               parameters = { some_parameter: 1, some_other_parameter: 11 }
 
               test "Is an error" do
-                assert_raises(Recorder::Error) do
+                assert_raises(RecordInvocation::Error) do
                   recorder.one_invocation(invocation.method_name, **parameters)
                 end
               end

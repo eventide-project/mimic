@@ -8,7 +8,7 @@ context "Recorder" do
       mimic = Mimic.(subject_class, record: true)
 
       test "Mimic is a recorder" do
-        assert(mimic.is_a? Recorder)
+        assert(mimic.is_a?(RecordInvocation))
       end
     end
   end
