@@ -13,7 +13,7 @@ module Mimic
 ## It's about the class def
       if record
         cls.class_exec do
-          include Recorder
+          include RecordInvocation
         end
       end
 

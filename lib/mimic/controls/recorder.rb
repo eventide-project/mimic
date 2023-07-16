@@ -6,7 +6,9 @@ module Mimic
       end
 
       class Example
-        include Mimic::Recorder
+##
+        # include Mimic::Recorder
+        include RecordInvocation
       end
     end
   end

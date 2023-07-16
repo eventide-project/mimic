@@ -10,6 +10,8 @@ context "Mimic" do
   end
 
   test "Is not a recorder" do
-    refute(mimic.is_a?(Mimic::Recorder))
+##
+    # refute(mimic.is_a?(Mimic::Recorder))
+    refute(mimic.is_a?(RecordInvocation))
   end
 end
