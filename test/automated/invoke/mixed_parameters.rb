@@ -10,7 +10,17 @@ context "Invoke" do
 
     test "Is not an error" do
       refute_raises do
-        mimic.some_method(11, 1111, 11111, some_keyword_parameter: 111, some_optional_keyword_parameter: 1111, yet_another_parameter: 11111, additional_parameter: 111111, &blk)
+        mimic.some_method(
+          :some_arg,
+          :some_optional_arg,
+          :some_multiple_assignment_arg,
+          :some_other_multiple_assignment_arg,
+          some_keyword_parameter: :some_keyword_arg,
+          some_optional_keyword_parameter: :some_optional_keyword_arg,
+          some_multiple_assignment_keyword_parameter: :some_multiple_assignment_keyword_arg,
+          some_other_multiple_assignment_keyword_parameter: :some_other_multiple_assignment_keyword_arg,
+          &blk
+        )
       end
     end
   end
