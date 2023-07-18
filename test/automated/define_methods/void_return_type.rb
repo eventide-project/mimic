@@ -7,7 +7,7 @@ context "Define Methods" do
 
   implemented_methods = Controls::Subject.implemented_methods
 
-  context "Voided" do
+  context "Void Return Type" do
     implemented_methods.each do |m|
       result = subject.__send__(m)
 
