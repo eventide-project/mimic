@@ -8,7 +8,7 @@ context "Define Methods" do
 
     implemented_methods = Controls::Subject.implemented_methods
 
-    test "Interactions are recorded" do
+    test "Invocations are recorded" do
       implemented_methods.each do |m|
         subject.__send__(m)
 
