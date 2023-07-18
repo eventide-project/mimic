@@ -8,7 +8,7 @@ context "Invoke" do
 
     blk = proc { nil }
 
-    test "Is not an error" do
+    test "Not an error" do
       refute_raises do
         mimic.some_method(
           :some_arg,
