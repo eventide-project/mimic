@@ -3,7 +3,14 @@ module Mimic
     module Subject
       module MixedParameters
         class Example
-          def some_method(some_parameter, some_optional_parameter=nil, *parameters, some_keyword_parameter:, some_optional_keyword_parameter: nil, **named_parameters, &blk)
+          def some_method(
+            some_parameter,
+            some_optional_parameter=nil,
+            *some_multiple_assignment_parameter,
+            some_keyword_parameter:,
+            some_optional_keyword_parameter: nil,
+            **some_multiple_assignment_keyword_parameter,
+            &some_block)
           end
         end
       end
