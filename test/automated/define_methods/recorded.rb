@@ -1,7 +1,7 @@
 require_relative '../automated_init'
 
 context "Define Methods" do
-  context "Recorder" do
+  context "Recorded" do
     subject_class = Controls::Subject.example
 
     subject = Mimic.(subject_class, record: true)
