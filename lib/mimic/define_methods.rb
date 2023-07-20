@@ -19,8 +19,8 @@ module Mimic
 
     def self.method_definition(mthd, record)
       "
-        #{signature(mthd)}
-          #{body(record)}
+        #{record ? "record " : "" }#{signature(mthd)}
+          Void.new
         end
       "
     end
@@ -77,19 +77,20 @@ module Mimic
       end
     end
 
-    def self.body(record)
-      body = ''
-      if record
-        body << <<~RECORD
-          invocation = Invocation.build(binding)
-          __record(invocation)
-        RECORD
-      end
+##
+    # def self.body(record)
+    #   body = ''
+    #   if record
+    #     body << <<~RECORD
+    #       invocation = Invocation.build(binding)
+    #       __record(invocation)
+    #     RECORD
+    #   end
 
-      body << "Void.new"
+    #   body << "Void.new"
 
-      body
-    end
+    #   body
+    # end
   end
 end
 
