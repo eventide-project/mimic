@@ -45,8 +45,9 @@ mimic.some_method
 ## Recording Invocations of a Mimic Object
 
 A mimic can be optionally configured to to record invocations made against it.
+When the mimic's methods are invoked, the invocation and its arguments will be recorded.
 
-Recording is activated using the `record` named parameter.
+Recording is activated using the `record` keyword parameter.
 
 ``` ruby
 class SomeClass
@@ -57,7 +58,9 @@ end
 mimic = Mimic.(SomeClass, record: true)
 ```
 
-When the mimic's methods are invoked, the invocation and its arguments will be recorded.
+### Querying Invocations
+
+An invocation can be retrieved based on its method name and parameter values.
 
 ``` ruby
 mimic.some_method('some argument', 'some other argument')
@@ -92,114 +95,34 @@ mimic.invocation(:some_method, some_parameter: 'some argument', some_other_param
  @parameters={:some_parameter=>"some argument", :some_other_parameter=>"some other argument"}>
 ```
 
-If more than one invocation is found, only the first invocation will be returned.
+### Detecting Invocations
 
-If a method should have only been invoked once, the `one_invocation` method will raise an error rather than return the first invocation.
-
-``` ruby
-mimic.some_method('some argument', 'some other argument')
-mimic.some_method('some argument', 'yet another argument')
-
-mimic.one_invocation(:some_method)
-# => More than one invocation record matches (Method Name: :some_method, Parameters: nil) (Mimic::Recorder::Error)
-
-mimic.one_invocation(:some_method, some_parameter: 'some argument')
-# => More than one invocation record matches (Method Name: :some_method, Parameters: {:some_parameter => "some argument"}) (Mimic::Recorder::Error)
-```
-
-If only one invocation of the method was recorded, then that invocation will be returned, just as it does with the `invocation` method.
+A recording mimic provides predicates for detecting whether an invocation has been made.
 
 ``` ruby
-mimic.some_method('some argument', 'some other argument')
+recorder.some_method('some argument', 'some other argument')
 
-mimic.invocation(:some_method, some_parameter: 'some argument')
-# => #<Invocation:0x...
- @method_name=:some_method,
- @parameters={:some_parameter=>"some argument", :some_other_parameter=>"some other argument"}>
-```
-
-If a method is invoked more than once, multiple invocation records can be retrieved.
-
-``` ruby
-mimic.some_method('some argument', 'some other argument')
-mimic.some_method('another argument', 'yet another argument')
-
-mimic.invocations(:some_method)
-# => [#<Invocation:0x...
-  @method_name=:some_method,
-  @parameters={:some_parameter=>"some argument", :some_other_parameter=>"some other argument"}>,
- #<Invocation:0x...
-  @method_name=:some_method,
-  @parameters={:some_parameter=>"another argument", :some_other_parameter=>"yet another argument"}>]
-
-mimic.invocations(:some_random_method)
-# => []
-
-mimic.invocations(:some_method, some_parameter: 'some argument')
-# => [#<Invocation:0x...
-  @method_name=:some_method,
-  @parameters={:some_parameter=>"some argument", :some_other_parameter=>"some other argument"}>]
-
-mimic.invocations(:some_method, some_other_parameter: 'some other argument')
-# => [#<Invocation:0x...
-  @method_name=:some_method,
-  @parameters={:some_parameter=>"some argument", :some_other_parameter=>"some other argument"}>]
-
-mimic.invocations(:some_method, some_parameter: 'some argument', some_other_parameter: 'some other argument')
-# => [#<Invocation:0x...
-  @method_name=:some_method,
-  @parameters={:some_parameter=>"some argument", :some_other_parameter=>"some other argument"}>]
-```
-
-The mimic provides predicates for detecting whether an invocation has been made.
-
-``` ruby
-mimic.some_method('some argument', 'some other argument')
-
-mimic.invoked?(:some_method)
+recorder.invoked?(:some_method)
 # => true
 
-mimic.invoked?(:some_random_method)
+recorder.invoked?(:some_random_method)
 # => false
 
-mimic.invoked?(:some_method, some_parameter: 'some argument')
+recorder.invoked?(:some_method, some_parameter: 'some argument')
 # => true
 
-mimic.invoked?(:some_method, some_other_parameter: 'some other argument')
+recorder.invoked?(:some_method, some_other_parameter: 'some other argument')
 # => true
 
-mimic.invoked?(:some_method, some_parameter: 'some argument', some_other_parameter: 'some other argument')
-# => true
-```
-
-If a method should have only been invoked once, the `invoked_once?` predicate will raise an error if more than one matching invocation is detected.
-
-``` ruby
-mimic.some_method('some argument', 'some other argument')
-mimic.some_method('some argument', 'yet another argument')
-
-mimic.invoked_once?(:some_method)
-# => More than one invocation record matches (Method Name: :some_method, Parameters: nil) (Mimic::Recorder::Error)
-
-mimic.invoked_once?(:some_method, some_parameter: 'some argument')
-# => More than one invocation record matches (Method Name: :some_method, Parameters: {:some_parameter => "some argument"}) (Mimic::Recorder::Error)
-```
-
-If only one invocation of the method was recorded, then the predicate will respond affirmatively.
-
-``` ruby
-mimic.some_method('some argument', 'some other argument')
-
-mimic.invoked_once?(:some_method, some_parameter: 'some argument')
+recorder.invoked?(:some_method, some_parameter: 'some argument', some_other_parameter: 'some other argument')
 # => true
 ```
 
-The methods of the recorder may conflict with the methods implemented on the mimicked class. If so, a secondary set of method names may be used to access the mimic's diagnostic functions:
+### Further Documentation on Method Recording
 
-- __invocation
-- __invocations
-- __invoked?
-- __invoked_once?
+For further documentation on method recording and querying, see the `RecordInvocation` library's documentation, which is the basis of the `Mimic` library's method invocation recorder.
+
+[https://github.com/eventide-project/record-invocation](https://github.com/eventide-project/record-invocation)
 
 ## Mimicked Methods and the Void Return Type
 
@@ -275,6 +198,7 @@ The Mimic library is the substitute generator in the [Dependency](https://github
 ``` ruby
 class SomeDependencyClass
   def call
+    # Some implementation logic
   end
 end
 
@@ -292,6 +216,10 @@ obj.some_method_that_doesnt_exist
 obj.dependency.class
 # => Mimic::Class::SomeDependencyClass_0..
 ```
+
+For further documentation on the `Dependency` library, see the library's documentation.
+
+(https://github.com/eventide-project/dependency)(https://github.com/eventide-project/dependency)
 
 ## License
 
