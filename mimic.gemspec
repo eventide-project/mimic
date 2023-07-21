@@ -15,8 +15,6 @@ Gem::Specification.new do |s|
   s.platform = Gem::Platform::RUBY
   s.required_ruby_version = '>= 2.4'
 
-##
-#  s.add_dependency 'evt-invocation'
   s.add_dependency 'evt-record_invocation'
 
   s.add_development_dependency 'test_bench'
