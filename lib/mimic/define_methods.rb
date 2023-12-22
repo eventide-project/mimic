@@ -82,7 +82,7 @@ module Mimic
     #   body = ''
     #   if record
     #     body << <<~RECORD
-    #       invocation = Invocation.build(binding)
+    #       invocation = Invocation.reflect(binding)
     #       __record(invocation)
     #     RECORD
     #   end
