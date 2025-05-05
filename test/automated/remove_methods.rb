@@ -1,4 +1,4 @@
-require_relative 'automated_init'
+require_relative "automated_init"
 
 context "Remove Methods" do
   subject_class = Controls::Subject::Anonymous.example

@@ -25,7 +25,7 @@ module Mimic
       if cls.name.nil?
         return "C#{class_id}"
       else
-        return "#{cls.name.gsub('::', '_')}_#{class_id}"
+        return "#{cls.name.gsub("::", "_")}_#{class_id}"
       end
     end
   end

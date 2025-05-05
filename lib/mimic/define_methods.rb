@@ -32,7 +32,7 @@ module Mimic
     end
 
     def self.parameter_list(parameters)
-      parameter_list = ''
+      parameter_list = ""
       parameters.each do |parameter|
         parameter_signature = parameter_signature(parameter)
         parameter_list << "#{parameter_signature}, "
@@ -79,7 +79,7 @@ module Mimic
 
 ##
     # def self.body(record)
-    #   body = ''
+    #   body = ""
     #   if record
     #     body << <<~RECORD
     #       invocation = Invocation.build(binding)

@@ -10,7 +10,7 @@ module Mimic
           compare_method = compare.method(method_name)
           compare_parameters = compare_method.parameters
 
-          if ENV['VERBOSE'] == 'on'
+          if ENV["VERBOSE"] == "on"
             puts "Control: #{control.class}"
             pp control_parameters
 
@@ -34,7 +34,7 @@ module Mimic
           compare_parameters = compare_method.parameters
           compare_parameter_types = compare_parameters.map(&:first)
 
-          if ENV['VERBOSE'] == 'on'
+          if ENV["VERBOSE"] == "on"
             puts "Control: #{control.class}"
             pp control_parameter_types
 

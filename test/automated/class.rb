@@ -1,4 +1,4 @@
-require_relative 'automated_init'
+require_relative "automated_init"
 
 context "Class Name" do
   context "Static" do
@@ -8,7 +8,7 @@ context "Class Name" do
 
     class_name = cls.name
 
-    if ENV['VERBOSE'] == 'on'
+    if ENV["VERBOSE"] == "on"
       pp class_name
     end
 
@@ -28,7 +28,7 @@ context "Class Name" do
 
     class_name = cls.name
 
-    if ENV['VERBOSE'] == 'on'
+    if ENV["VERBOSE"] == "on"
       pp class_name
     end
 
