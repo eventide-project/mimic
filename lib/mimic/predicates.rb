@@ -1,1 +1,1 @@
-require 'mimic/predicates/method/parameters'
+require "mimic/predicates/method/parameters"

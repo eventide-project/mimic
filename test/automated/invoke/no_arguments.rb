@@ -1,4 +1,4 @@
-require_relative '../automated_init'
+require_relative "../automated_init"
 
 context "Invoke" do
   context "No Arguments Received by Mimic" do

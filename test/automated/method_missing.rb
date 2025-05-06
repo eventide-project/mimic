@@ -1,4 +1,4 @@
-require_relative 'automated_init'
+require_relative "automated_init"
 
 context "Method Missing" do
   context "Mimic Implements Method Missing" do
