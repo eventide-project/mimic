@@ -32,7 +32,7 @@ module Mimic
     end
 
     def self.parameter_list(parameters)
-      parameter_list = ''
+      parameter_list = String.new
       parameters.each do |parameter|
         parameter_signature = parameter_signature(parameter)
         parameter_list << "#{parameter_signature}, "
