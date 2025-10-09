@@ -219,7 +219,7 @@ obj.dependency.class
 
 For further documentation on the `Dependency` library, see the library's documentation.
 
-(https://github.com/eventide-project/dependency)(https://github.com/eventide-project/dependency)
+[https://github.com/eventide-project/dependency](https://github.com/eventide-project/dependency)
 
 ## License
 
